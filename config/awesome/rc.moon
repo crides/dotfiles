@@ -360,6 +360,6 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- }}}
 
 -- Autostart
-os.execute("xrdb /home/steven/base16/output/xresources/xresources/base16-gruvbox-dark-hard.Xresources")
+os.execute("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
 os.execute("picom -b")
 os.execute("mpd")
