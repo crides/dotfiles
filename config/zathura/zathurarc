@@ -1,0 +1,55 @@
+# Base16 Helios
+# Author: Alex Meyer (https://github.com/reyemxela)
+
+set   font                      "Iosevka 13"
+set   guioptions                csv
+
+set scroll-step                 100
+
+set recolor                     false
+set recolor-keephue             true
+
+set statusbar-home-tilde        true
+set window-title-home-tilde     true
+
+set default-fg                  "#303335"
+set default-bg                  "#1d2021"
+
+set statusbar-fg                "#cdcdcd"
+set statusbar-bg                "#434749"
+
+set inputbar-fg                 "#e5e5e5"
+set inputbar-bg                 "#1d2021"
+
+set notification-fg             "#e5e5e5"
+set notification-bg             "#1d2021"
+
+set notification-error-fg       "#d72638"
+set notification-error-bg       "#1d2021"
+
+set notification-warning-fg     "#d72638"
+set notification-warning-bg     "#1d2021"
+
+set highlight-color             "#f19d1a"
+set highlight-active-color      "#88b92d"
+
+set completion-fg               "#1e8bac"
+set completion-bg               "#303335"
+
+set completion-highlight-bg     "#1e8bac"
+set completion-highlight-fg     "#e5e5e5"
+
+set recolor-lightcolor          "#1d2021"
+set recolor-darkcolor           "#e5e5e5"
+
+set completion-group-fg         "#88b92d" 
+set completion-group-bg         "#1d2021" 
+
+set render-loading-fg           "#e5e5e5" 
+set render-loading-bg           "#1d2021" 
+
+set index-fg                    "#e5e5e5" 
+set index-bg                    "#1d2021" 
+
+set index-active-fg             "#1d2021" 
+set index-active-bg             "#88b92d" 

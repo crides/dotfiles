@@ -1,0 +1,22 @@
+[username]
+show_always = true
+
+[time]
+disabled = false
+
+[python]
+disabled = true
+
+[memory_usage]
+disabled = false
+threshold = 85
+
+[character]
+symbol = "\ue0b0"
+vicmd_symbol = "\ue0b2"
+
+[git_commit]
+disabled = false
+
+[rust]
+symbol = " "
