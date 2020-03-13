@@ -1,0 +1,11 @@
+" vi:ft=vim
+set windows library,playlist,browse
+set browsenumbers
+set playlistnumbers
+set windownumbers
+set songnumbers
+" set smartcase
+set ignorecase
+set incsearch
+
+map @ :set add next<C-M>a:set add end<C-M>
