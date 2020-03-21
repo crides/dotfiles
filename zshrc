@@ -1,36 +1,6 @@
-# zmodload zsh/datetime
-# setopt PROMPT_SUBST
-# PS4='+$EPOCHREALTIME %N:%i> '
-
-# logfile=$(mktemp zsh_profile.XXXXXXXX)
-# echo "Logging to $logfile"
-# exec 3>&2 2>$logfile
-
-# setopt XTRACE
-
 # Path to your oh-my-zsh installation.
 export ZSH="/home/steven/.oh-my-zsh"
 export ZSH_DISABLE_COMPFIX=true
-
-# Themes
-# export ZSH_THEME=powerlevel10k/powerlevel10k
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode user dir background_jobs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time)
-
-POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
-POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='green'
-POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='blue'
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='white'
-
-POWERLEVEL9K_USER_DEFAULT_FOREGROUND='white'
-POWERLEVEL9K_USER_DEFAULT_BACKGROUND='blue'
-
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='white'
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='grey'
-POWERLEVEL9K_DIR_HOME_FOREGROUND='white'
-POWERLEVEL9K_DIR_HOME_BACKGROUND='grey'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='white'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='grey'
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -159,14 +129,12 @@ alias zathura='zathura --fork'
 export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
-# export PYTHONPATH="$PYTHONPATH:$HOME/.vim/bundle/powerline"
-# powerline-daemon -q
-# . ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
-# export PS1="$PS1"
-
 export BROWSER=firefox
 export EDITOR=nvim
 export VISUAL=nvim
+
+# QMK
+export QMK_HOME=/home/steven/gitproj/qmk_firmware
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
