@@ -1,10 +1,12 @@
-mpc = require "mpc"
+require "moonscript"
+mpc = require "mpd.mpc"
 wibox = require "wibox"
 awful = require "awful"
 beautiful = require "beautiful"
 naughty = require "naughty"
 gears = require "gears"
 require "util"
+(require "fun")()
 
 ICON_PATH = full_path "mpd/"
 
@@ -67,9 +69,12 @@ update_widget = ->
         fg = beautiful.darkgray
     if state == "stop" then
         fg = beautiful.red
+    text = title
+    if not text
+        text = "(Not Playing)"
     textbox.text\set_markup(markup {
         fg: beautiful.white,
-        title,
+        text,
     })
     textbox.box.bar\set_value(elapsed / duration)
     textbox.box.bar.color = fg
@@ -77,15 +82,19 @@ update_widget = ->
 error_handler = (err) ->
     textbox.text\set_text("Error: " .. tostring(err))
     -- Try a reconnect soon-ish
-    timer.start_new(10, -> MPC\send("ping"))
+    --timer.start_new(10, -> MPC\send("ping"))
 
 export MPC = mpc.Mpc(nil, nil, nil, error_handler,
     "status", ((_, result) ->
-        elapsed = math.floor(result.elapsed)
+        buf = ""
+        for k, v in pairs(result) do
+            buf = buf .. tostring(k) .. ": " .. tostring(v) .. "\n"
+        elapsed = result.elapsed or 0
         state = result.state
         update_widget!),
     "currentsong", (_, result) ->
         { :title, :artist, :file, :album, :duration } = result
+        duration = duration or 1
         update_widget!)
 
 gears.timer {
@@ -94,8 +103,9 @@ gears.timer {
     autostart: true,
     callback: ->
         MPC\send("status", (_, result) ->
-            elapsed = math.floor(result.elapsed)
-            textbox.box.bar\set_value(elapsed / duration))
+            elapsed = result.elapsed or 0
+            state = result.state
+            update_widget!)
 }
 
 with awful.tooltip

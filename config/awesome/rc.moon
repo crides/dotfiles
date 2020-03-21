@@ -10,14 +10,7 @@ require "awful.hotkeys_popup.keys"
 gtable = require "gears.table"
 require "util"
 keys = require "keys"
-mpc = require "mpc"
 lain = require "lain"
-
-root.keys keys.keys
-root.buttons(gears.table.join(
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -36,16 +29,25 @@ do
         return if in_error
         in_error = true
 
+        buf = ""
+        for k, v in pairs(err)
+            buf = buf .. tostring(k) .. ": " .. tostring(v) .. "\n"
         naughty.notify
             preset: naughty.config.presets.critical
             title: "Oops, an error happened!"
-            text: tostring(err)
+            text: buf
         in_error = false)
 -- }}}
 
 -- Init sub-widgets
 beautiful.init require "theme"
 export APW = require "apw/widget"
+
+root.keys keys.keys
+root.buttons(gears.table.join(
+    awful.button({ }, 4, awful.tag.viewnext),
+    awful.button({ }, 5, awful.tag.viewprev)
+))
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -63,7 +65,7 @@ time_module = with wibox.widget.textclock!
     .format = markup { bg: beautiful.blue, fg: beautiful.black, " %H:%M " }
 
 wifi_module = awful.widget.watch(
-    'sh -c "nmcli c s --active | tail -n1 | rargs echo {1}"',
+    'sh -c "nmcli c s --active | rg wifi | tail -n1 | rargs echo {1}"',
     5, (widget, output) ->
         output = output\gsub("\n", "")
         widget.markup = markup {
@@ -200,13 +202,16 @@ awful.screen.connect_for_each_screen =>
                 with awful.tooltip
                         objects: {@}
                         timer_function: ->
-                            with window_indicator
-                                .x = c.x
-                                .y = c.y
-                                .widget.forced_height = c.height - 10
-                                .widget.forced_width = c.width - 10
-                                .visible = true
-                            c.name
+                            if c
+                                with window_indicator
+                                    .x = c.x
+                                    .y = c.y
+                                    .widget.forced_height = c.height - 10
+                                    .widget.forced_width = c.width - 10
+                                    .visible = true
+                                c.name
+                            else
+                                ""
                         delay_show: 1
                     .mode = "outside"
                     .preferred_alignments = {"middle"}
@@ -363,3 +368,4 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 os.execute("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
 os.execute("picom -b")
 os.execute("mpd")
+os.execute("xiput disable $(xinput list | rg 'Touchpad\\s*id=(\\d+)' -or '$1')")

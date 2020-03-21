@@ -10,14 +10,12 @@ term = "alacritty"
 new_term = "konsole"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = term .. " -e " .. editor
+browser = "qutebrowser"
 
 keys = gears.table.join(
     awful.key(
         { modkey,           }, "s",      hotkeys_popup.show_help,
         {description: "show help", group: "awesome"}),
-    awful.key(
-        { modkey,           }, "p", -> xrandr.xrandr!,
-        {description: "switch monitor modes", group: "awesome"}),
     awful.key(
         { modkey,           }, "Left",   awful.tag.viewprev,
         {description: "view previous", group: "tag"}),
@@ -28,22 +26,22 @@ keys = gears.table.join(
         { modkey,           }, "Escape", awful.tag.history.restore,
         {description: "go back", group: "tag"}),
     awful.key(
-        { modkey,           }, "j", -> awful.client.focus.byidx(-1),
-        {description: "focus next by index", group: "client"}),
-    awful.key(
-        { modkey,           }, "k", -> awful.client.focus.byidx(1),
+        { modkey,           }, "h", -> awful.client.focus.byidx(-1),
         {description: "focus previous by index", group: "client"}),
     awful.key(
-        { modkey, "Shift"   }, "j", -> awful.client.swap.byidx( -1),
-        {description: "swap with next client by index", group: "client"}),
+        { modkey,           }, "l", -> awful.client.focus.byidx(1),
+        {description: "focus next by index", group: "client"}),
     awful.key(
-        { modkey, "Shift"   }, "k", -> awful.client.swap.byidx(  1),
+        { modkey, "Shift"   }, "h", -> awful.client.swap.byidx( -1),
         {description: "swap with previous client by index", group: "client"}),
     awful.key(
-        { modkey, "Control" }, "j", -> awful.screen.focus_relative(-1),
+        { modkey, "Shift"   }, "l", -> awful.client.swap.byidx(  1),
+        {description: "swap with next client by index", group: "client"}),
+    awful.key(
+        { modkey,           }, "j", -> awful.screen.focus_relative(-1),
         {description: "focus the next screen", group: "screen"}),
     awful.key(
-        { modkey, "Control" }, "k", -> awful.screen.focus_relative( 1),
+        { modkey,           }, "k", -> awful.screen.focus_relative( 1),
         {description: "focus the previous screen", group: "screen"}),
     awful.key(
         { modkey,           }, "u", awful.client.urgent.jumpto,
@@ -51,6 +49,9 @@ keys = gears.table.join(
 
     awful.key(    -- Standard program
         { modkey,           }, "Return", -> awful.spawn(new_term),
+        {description: "open a terminal", group: "launcher"}),
+    awful.key(
+        { modkey,           }, "f", -> awful.spawn(browser),
         {description: "open a terminal", group: "launcher"}),
     awful.key(
         { modkey, "Shift"   }, "r", awesome.restart,
@@ -132,7 +133,7 @@ keys = gears.table.join(
 
 clientkeys = gears.table.join(
     awful.key(
-        { modkey,           }, "f", =>
+        { modkey, "Shift" }, "f", =>
             @fullscreen = not @fullscreen
             @raise!,
         {description: "toggle fullscreen", group: "client"}),
@@ -146,8 +147,11 @@ clientkeys = gears.table.join(
         { modkey, "Control" }, "Return", => @swap(awful.client.getmaster!),
         {description: "move to master", group: "client"}),
     awful.key(
-        { modkey,           }, "o", => @move_to_screen!,
-        {description: "move to screen", group: "client"}),
+        { modkey, "Shift"   }, "j", => @move_to_screen(@screen.index - 1),
+        {description: "move client to previous screen", group: "screen"}),
+    awful.key(
+        { modkey, "Shift"   }, "k", => @move_to_screen(@screen.index + 1),
+        {description: "move client to next screen", group: "screen"}),
     awful.key(
         { modkey,           }, "t", => @ontop = not @ontop,
         {description: "toggle keep on top", group: "client"}),
@@ -205,8 +209,8 @@ taglist_buttons = gears.table.join(
     awful.button({ modkey }, 1, => client.focus\move_to_tag @ if client.focus),
     awful.button({ }, 3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, => client.focus\toggle_tag @ if client.focus),
-    awful.button({ }, 4, => awful.tag.viewnext @screen),
-    awful.button({ }, 5, => awful.tag.viewprev @screen)
+    awful.button({ }, 4, => awful.tag.viewprev @screen),
+    awful.button({ }, 5, => awful.tag.viewnext @screen)
 )
 
 tasklist_buttons = gears.table.join(

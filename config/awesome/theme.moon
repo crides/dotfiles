@@ -68,7 +68,7 @@ with {}
     .apw_bg_normal = .green
     .apw_bg_mute = .red
 
-    .notification_max_height = dpi 96
+    .notification_max_height = dpi 10000
     .notification_icon_size = dpi 72
 
     .menu_submenu_icon = themes_path.."default/submenu.png"
