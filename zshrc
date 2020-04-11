@@ -129,7 +129,7 @@ alias zathura='zathura --fork'
 export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
-export BROWSER=firefox
+export BROWSER=qutebrowser
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -225,7 +225,8 @@ z() {
 }
 
 alias zi="z -i"
-
-alias za="zoxide add"
 alias zq="zoxide query"
-alias zr="zoxide remove"
+
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
