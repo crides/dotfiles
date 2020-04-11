@@ -301,6 +301,18 @@ awful.rules.rules = {
     { rule_any: {type: { "normal", "dialog" }
       }, properties: { titlebars_enabled: true }
     },
+
+    {
+        rule_any: {
+            name: {
+                "Plover",
+            },
+        },
+        properties: {
+            floating: true,
+            sticky: true,
+        },
+    },
 }
 -- }}}
 
@@ -322,6 +334,9 @@ client.connect_signal("request::titlebars", (c) ->
         awful.button({ }, 1, ->
             c\emit_signal("request::activate", "titlebar", {raise: true})
             awful.mouse.client.move(c)
+        ),
+        awful.button({ }, 2, ->
+            c.minimized = true
         ),
         awful.button({ }, 3, ->
             c\emit_signal("request::activate", "titlebar", {raise: true})

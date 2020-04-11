@@ -60,24 +60,6 @@ keys = gears.table.join(
         { modkey, "Shift"   }, "q", awesome.quit,
         {description: "quit awesome", group: "awesome"}),
     awful.key(
-        { modkey,           }, "l",     -> awful.tag.incmwfact( 0.05),
-        {description: "increase master width factor", group: "layout"}),
-    awful.key(
-        { modkey,           }, "h",     -> awful.tag.incmwfact(-0.05),
-        {description: "decrease master width factor", group: "layout"}),
-    awful.key(
-        { modkey, "Shift"   }, "h",     -> awful.tag.incnmaster( 1, nil, true),
-        {description: "increase the number of master clients", group: "layout"}),
-    awful.key(
-        { modkey, "Shift"   }, "l",     -> awful.tag.incnmaster(-1, nil, true),
-        {description: "decrease the number of master clients", group: "layout"}),
-    awful.key(
-        { modkey, "Control" }, "h",     -> awful.tag.incncol( 1, nil, true),
-        {description: "increase the number of columns", group: "layout"}),
-    awful.key(
-        { modkey, "Control" }, "l",     -> awful.tag.incncol(-1, nil, true),
-        {description: "decrease the number of columns", group: "layout"}),
-    awful.key(
         { modkey,           }, "space", -> awful.layout.inc( 1),
         {description: "select next", group: "layout"}),
     awful.key(
@@ -228,6 +210,10 @@ clientbuttons = gears.table.join(
         @emit_signal("request::activate", "mouse_click", {raise: true})),
     awful.button({ modkey }, 1, =>
         @emit_signal("request::activate", "mouse_click", {raise: true})
+        awful.mouse.client.move(@)),
+    awful.button({ modkey }, 2, =>
+        -- @emit_signal("request::activate", "mouse_click", {raise: true})
+        @minimized = true
         awful.mouse.client.move(@)),
     awful.button({ modkey }, 3, =>
         @emit_signal("request::activate", "mouse_click", {raise: true})
