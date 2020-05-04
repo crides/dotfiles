@@ -305,12 +305,34 @@ awful.rules.rules = {
     {
         rule_any: {
             name: {
+                "SimpleScreenRecorder",
+            },
+        },
+        properties: {
+            floating: true,
+        },
+    },
+
+    {
+        rule_any: {
+            name: {
                 "Plover",
             },
         },
         properties: {
             floating: true,
             sticky: true,
+        },
+    },
+
+    {
+        rule_any: {
+            name: {
+                "Plover: Suggestion",
+            },
+        },
+        properties: {
+            focusable: false,
         },
     },
 }
