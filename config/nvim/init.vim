@@ -48,19 +48,32 @@ let g:UltiSnipsExpandTrigger="<c-space>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-Plug 'w0rp/ale'
-let g:ale_completion_enabled = 1
-let g:ale_c_clang_options = '-std=gnu11 -Wall'
+" Plug 'w0rp/ale'
+" let g:ale_completion_enabled = 1
+" let g:ale_linters = {'c': ['gcc']}
+" let g:ale_c_clang_options = '-std=gnu11 -Wall'
+" let g:ale_c_gcc_options = '-std=gnu11 -Wall -I/usr/avr/include -mmcu=atmega328p'
 
-Plug 'racer-rust/vim-racer'
-let g:racer_cmd = "~/.cargo/bin/racer"
-let g:racer_experimental_completer = 0
+" Plug 'racer-rust/vim-racer'
+" let g:racer_cmd = "~/.cargo/bin/racer"
+" let g:racer_experimental_completer = 0
+" let g:racer_disable_errors = 1
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#check_stderr = v:false
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" let g:deoplete#check_stderr = 1
+" let g:deoplete#enable_at_startup = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" " Use tab for trigger completion with characters ahead and navigate.
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
@@ -101,6 +114,10 @@ Plug 'kana/vim-textobj-user'
 Plug 'adriaanzon/vim-textobj-matchit'
 
 " === UI ===
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
+let g:lens#animate = 1
+
 Plug 'flrnprz/plastic.vim'
 Plug 'Yggdroot/indentLine'
 " Plug 'nathanaelkane/vim-indent-guides'
@@ -164,6 +181,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'joshdick/onedark.vim'
@@ -182,6 +200,7 @@ runtime macros/matchit.vim
 filetype plugin indent on
 syntax on
 " Custom settings
+set textwidth=100
 set laststatus=2
 set shiftwidth=4
 set tabstop=4
@@ -208,6 +227,7 @@ set noshowmode
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set clipboard=unnamedplus,unnamed
 set magic
+set guifont=Iosevka:h8
 
 " Colorscheme
 set bg=dark
