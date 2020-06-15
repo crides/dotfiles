@@ -200,7 +200,6 @@ runtime macros/matchit.vim
 filetype plugin indent on
 syntax on
 " Custom settings
-set textwidth=100
 set laststatus=2
 set shiftwidth=4
 set tabstop=4
@@ -263,6 +262,6 @@ com -nargs=0 W w
 com -nargs=0 Wq wq
 com -nargs=0 Wqa wqa
 
-autocmd FileType rust :set mps+=<:>
+autocmd FileType rust :set mps+=<:> tw=110
 autocmd FileType dart :set sw=2 ts=2
 autocmd FileType markdown :set conceallevel=0
