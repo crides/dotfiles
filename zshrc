@@ -125,6 +125,8 @@ alias weather='http --body wttr.in/Champaign\?mQF'
 alias gblog='git blog'
 alias gt='git tree'
 alias zathura='zathura --fork'
+alias pacman='pacman --color always'
+alias yay='yay --color always'
 
 export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
