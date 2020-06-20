@@ -28,9 +28,6 @@
 [submodule ".vim/bundle/gruvbox"]
 	path = vim/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
-[submodule ".vim/bundle/helios.vim"]
-	path = vim/bundle/helios.vim
-	url = https://github.com/joshdick/onedark.vim.git
 [submodule ".vim/bundle/indentLine"]
 	path = vim/bundle/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
