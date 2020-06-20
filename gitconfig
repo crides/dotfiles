@@ -1,0 +1,18 @@
+[user]
+	name = crides
+	email = zhuhaoqing@live.cn
+	username = Crides
+[core]
+	editor = nvim
+[credential]
+	useHttpPath = true
+    helper = cache --timeout=3600
+[push]
+	default = simple
+; [url "https://github.com/"]
+; 	insteadOf = git@github.com:
+; [url "https://"]
+; 	insteadOf = git://
+[alias]
+    blog = log --graph --all --format=format:'%w(80,0,0)%C(bold magenta)%h%C(reset) %C(white)%ad%C(reset) %C(dim white)(%ar)%C(reset) %C(bold dim white)%aN%C(auto)%+D%C(reset)%n         %C(bold white)%s%C(reset)%+b%n'#%C(dim white)Committed: %cD%n%C(dim white)By: %cn <%ce>%C(reset)%n'
+    tree = log --graph --all --format=format:'%C(bold magenta)%h%C(auto)%d%C(reset) %s%C(reset)'
