@@ -51,8 +51,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zsh_history
-HISTSIZE=8192
-SAVEHIST=8192
+HISTSIZE=65536
+SAVEHIST=65536
 setopt appendhistory extendedglob
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
