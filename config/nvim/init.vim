@@ -10,6 +10,7 @@ let mapleader = " "
 call plug#begin("~/.vim/bundle")
 
 " === Language & filetype plugins ===
+Plug 'urbit/hoon.vim'
 Plug 'leafo/moonscript-vim'
 Plug 'hylang/vim-hy'
 let g:hy_enable_conceal = 1

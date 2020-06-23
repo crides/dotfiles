@@ -184,3 +184,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "vim/bundle/hoon.vim"]
+	path = vim/bundle/hoon.vim
+	url = https://github.com/urbit/hoon.vim
