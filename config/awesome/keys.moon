@@ -7,7 +7,7 @@ xrandr = require "xrandr"
 
 term = "alacritty"
 -- new_term = full_path "new_term.sh"
-new_term = "konsole"
+new_term = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = term .. " -e " .. editor
 browser = "qutebrowser"

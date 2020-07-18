@@ -402,7 +402,7 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- }}}
 
 -- Autostart
-os.execute("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
-os.execute("picom -b")
-os.execute("mpd")
-os.execute("xiput disable $(xinput list | rg 'Touchpad\\s*id=(\\d+)' -or '$1')")
+awful.spawn.easy_async("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
+awful.spawn.easy_async("picom -b")
+awful.spawn.easy_async("mpd")
+awful.spawn.easy_async("xiput disable $(xinput list | rg 'Touchpad\\s*id=(\\d+)' -or '$1')")
