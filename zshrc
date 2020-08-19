@@ -232,3 +232,34 @@ alias zq="zoxide query"
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
+
+# NRF52 QMK
+export NRFSDK15_ROOT=~/gitproj/nRF5_SDK_15.0.0_a53641a
+
+# jarun/nnn
+# key-bookmark pairs
+export NNN_BMS="d:$HOME/Desktop;D:$HOME/Downloads;p:$HOME/Pictures;h:$HOME;m:/run/media/$USER;M:$HOME/Music;g:$HOME/gitproj"
+export NNN_OPTS="deSH"                                           # binary options to nnn
+export NNN_OPENER="$HOME/.config/ranger/scope.sh"               # custom opener (see plugin nuke)
+# export NNN_PLUG='o:fzopen;m:nmount;x:_chmod +x $nnn'           # key-plugin (or cmd) pairs
+export NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip)$"                 # archives [default: bzip2, (g)zip, tar]
+export NNN_COLORS='1234' #(/'#0a1b2c3d'/'#0a1b2c3d;1234')        # context colors [default: '4444' (blue)]
+export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'                    # file-specific colors
+# export NNN_TRASH=1                                               # use desktop Trash [default: delete]
+# export NNN_SEL='/tmp/.sel'                                       # custom selection file
+# export NNN_FIFO='/tmp/nnn.fifo'                                  # FIFO to write hovered file path to
+# export NNN_LOCKER='saidar -c'                                    # terminal locker
+# export NNN_MCLICK='^R'                                           # key emulated by middle mouse click
+### NNN_FCOLORS, in order
+# Block device              c1
+# Char device               e2
+# Directory                 27
+# Executable                2e
+# Regular                   00
+# Hard link                 60
+# Symbolic link             33
+# Missing OR file details   f7
+# Orphaned symbolic link    c6
+# FIFO                      d6
+# Socket                    ab
+# Unknown OR 0B regular/exe c4
