@@ -36,10 +36,7 @@ autocmd FileType tex :set conceallevel=1
 autocmd FileType tex :hi Conceal ctermfg=7 ctermbg=236
 let g:tex_conceal='abdmg'
 let g:latex_to_unicode_auto = 1
-
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/VimWiki/', 'ext': '.wiki'}]
-autocmd FileType vimwiki :set concealcursor+=n
+let g:tex_flavor = "latex"
 
 Plug 'gluon-lang/vim-gluon'
 
@@ -50,32 +47,41 @@ let g:UltiSnipsExpandTrigger="<c-space>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-" Plug 'w0rp/ale'
-" let g:ale_completion_enabled = 1
-" let g:ale_linters = {'c': ['gcc']}
-" let g:ale_c_clang_options = '-std=gnu11 -Wall'
-" let g:ale_c_gcc_options = '-std=gnu11 -Wall -I/usr/avr/include -mmcu=atmega328p'
-
-" Plug 'racer-rust/vim-racer'
-" let g:racer_cmd = "~/.cargo/bin/racer"
-" let g:racer_experimental_completer = 0
-" let g:racer_disable_errors = 1
-
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" let g:deoplete#check_stderr = 1
-" let g:deoplete#enable_at_startup = 1
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" " Use tab for trigger completion with characters ahead and navigate.
-" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+" " Use K to show documentation in preview window.
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
@@ -122,11 +128,6 @@ let g:lens#animate = 1
 
 Plug 'flrnprz/plastic.vim'
 Plug 'Yggdroot/indentLine'
-" Plug 'nathanaelkane/vim-indent-guides'
-" let g:indent_guides_enable_on_vim_startup = 1
-" let g:indent_guides_auto_colors = 1
-" " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=238
-" " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=239
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
@@ -163,7 +164,7 @@ let g:nord_italic = 1
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdtree'
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "*",
     \ "Staged"    : "+",
     \ "Untracked" : "?",
@@ -267,3 +268,4 @@ com -nargs=0 Wqa wqa
 autocmd FileType rust :set mps+=<:> tw=110
 autocmd FileType dart :set sw=2 ts=2
 autocmd FileType markdown :set conceallevel=0
+autocmd FileType json syntax match Comment +\/\/.\+$+
