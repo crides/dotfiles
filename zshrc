@@ -53,7 +53,7 @@ source $ZSH/oh-my-zsh.sh
 HISTFILE=~/.zsh_history
 HISTSIZE=65536
 SAVEHIST=65536
-setopt appendhistory extendedglob
+setopt sharehistory appendhistory extendedglob
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
 bindkey -v
@@ -127,6 +127,9 @@ alias gt='git tree'
 alias zathura='zathura --fork'
 alias pacman='pacman --color always'
 alias yay='yay --color always'
+alias mv="mv -iv"
+alias cp="cp -riv"
+alias mkdir="mkdir -vp"
 
 export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
@@ -240,8 +243,8 @@ export NRFSDK15_ROOT=~/gitproj/nRF5_SDK_15.0.0_a53641a
 # key-bookmark pairs
 export NNN_BMS="d:$HOME/Desktop;D:$HOME/Downloads;p:$HOME/Pictures;h:$HOME;m:/run/media/$USER;M:$HOME/Music;g:$HOME/gitproj"
 export NNN_OPTS="deSH"                                           # binary options to nnn
-export NNN_OPENER="$HOME/.config/ranger/scope.sh"               # custom opener (see plugin nuke)
-# export NNN_PLUG='o:fzopen;m:nmount;x:_chmod +x $nnn'           # key-plugin (or cmd) pairs
+export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"               # custom opener (see plugin nuke)
+export NNN_PLUG='d:dragdrop'           # key-plugin (or cmd) pairs
 export NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip)$"                 # archives [default: bzip2, (g)zip, tar]
 export NNN_COLORS='1234' #(/'#0a1b2c3d'/'#0a1b2c3d;1234')        # context colors [default: '4444' (blue)]
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'                    # file-specific colors
@@ -263,3 +266,8 @@ export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'                    # file-specific
 # FIFO                      d6
 # Socket                    ab
 # Unknown OR 0B regular/exe c4
+source "$HOME/gitproj/nnn/misc/quitcd/quitcd.bash_zsh"
+
+# Zephyr
+export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
+export ZEPHYR_SDK_INSTALL_DIR=/home/steven/.local/zephyr-sdk-0.11.2

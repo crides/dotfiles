@@ -20,3 +20,13 @@ disabled = false
 
 [rust]
 symbol = " "
+
+[env_var]
+variable = "SHELL"
+style = "dimmed white"
+default = "unknown shell"
+
+[custom.nnn]
+command = "echo NNN"
+when = "test $NNNLVL -gt 0"
+description = "nnn level"

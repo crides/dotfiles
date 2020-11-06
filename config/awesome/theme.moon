@@ -6,11 +6,12 @@ colors = xresources.get_current_theme!
 gfs = require "gears.filesystem"
 themes_path = gfs.get_themes_dir!
 taglist_square_size = dpi 4
+font = "Iosevka"
 
 with {}
-    .font = "Iosevka 14"
-    .hotkeys_font = "Iosevka Bold 9"
-    .hotkeys_description_font = "Iosevka Italic 9"
+    .font = font .. " 10"
+    .hotkeys_font = font .. " Italic 9"
+    .hotkeys_description_font = font .. " Italic 9"
 
     .background     = colors.background
     .foreground     = colors.foreground

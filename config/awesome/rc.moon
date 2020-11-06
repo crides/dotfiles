@@ -12,6 +12,16 @@ require "util"
 keys = require "keys"
 lain = require "lain"
 
+-- Init sub-widgets
+beautiful.init require "theme"
+export APW = require "apw/widget"
+
+naughty.config.defaults.position = "top_middle"
+naughty.config.presets.normal.fg = beautiful.black
+naughty.config.presets.normal.bg = beautiful.white
+naughty.config.presets.critical.fg = beautiful.black
+naughty.config.presets.critical.bg = beautiful.red
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -38,10 +48,6 @@ do
             text: buf
         in_error = false)
 -- }}}
-
--- Init sub-widgets
-beautiful.init require "theme"
-export APW = require "apw/widget"
 
 root.keys keys.keys
 root.buttons(gears.table.join(
@@ -143,8 +149,8 @@ awful.screen.connect_for_each_screen =>
                         id: 'index_role',
                         widget: wibox.widget.textbox,
                     },
-                    left: 7,
-                    right: 7,
+                    left: 5,
+                    right: 5,
                     widget: wibox.container.margin
                 },
                 top: 4,
@@ -316,12 +322,13 @@ awful.rules.rules = {
     {
         rule_any: {
             name: {
-                "Plover",
+                "dragon",
             },
         },
         properties: {
             floating: true,
             sticky: true,
+            ontop: true,
         },
     },
 

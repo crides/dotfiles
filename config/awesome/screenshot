@@ -1,3 +1,3 @@
 #!/bin/bash
 
-maim $(date +"$HOME/Pictures/maim-%Y-%m-%d--%H-%M-%S.png") -c "0.53125,0.722656,0.175781,0.5" -l -u $@
+maim $(date +"$HOME/Pictures/maim-%Y.%m.%d..%H.%M.%S.png") -c "0.53125,0.722656,0.175781,0.5" -l -u $@

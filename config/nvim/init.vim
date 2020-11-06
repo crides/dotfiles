@@ -55,8 +55,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+  let col = col('.')
+  return !(col - 1) || (col == col('$')) || getline('.')[col - 1]  =~ '\s'
 endfunction
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -122,6 +122,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'adriaanzon/vim-textobj-matchit'
 
 " === UI ===
+Plug 'jsit/toast.vim'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 let g:lens#animate = 1

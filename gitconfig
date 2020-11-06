@@ -18,3 +18,8 @@
     tree = log --graph --all --format=format:'%C(bold magenta)%h%C(auto)%d%C(reset) %s%C(reset)'
 [pull]
 	rebase = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
