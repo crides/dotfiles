@@ -271,3 +271,6 @@ source "$HOME/gitproj/nnn/misc/quitcd/quitcd.bash_zsh"
 # Zephyr
 export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
 export ZEPHYR_SDK_INSTALL_DIR=/home/steven/.local/zephyr-sdk-0.11.2
+
+# sharkdp/bat
+export BAT_CONFIG_PATH=$HOME/.config/bat.conf
