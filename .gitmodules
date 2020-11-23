@@ -187,3 +187,6 @@
 [submodule "vim/bundle/hoon.vim"]
 	path = vim/bundle/hoon.vim
 	url = https://github.com/urbit/hoon.vim
+[submodule "vim/bundle/goyo.vim"]
+	path = vim/bundle/goyo.vim
+	url = https://github.com/junegunn/goyo.vim

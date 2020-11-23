@@ -94,6 +94,7 @@ map <Leader>; <Plug>(easymotion-repeat)
 map <Leader>n <Plug>(easymotion-n)
 map <Leader>N <Plug>(easymotion-N)
 
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'majutsushi/tagbar'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
@@ -122,6 +123,36 @@ Plug 'kana/vim-textobj-user'
 Plug 'adriaanzon/vim-textobj-matchit'
 
 " === UI ===
+Plug 'junegunn/goyo.vim'
+let g:goyo_width = 120
+let g:goyo_height = "75%"
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowcmd
+  set scrolloff=999
+  if executable('awesome-client')
+    silent !awesome-client 'client.focus.fullscreen = true'
+  endif
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showcmd
+  set scrolloff=5
+  if executable('awesome-client')
+    silent !awesome-client 'client.focus.fullscreen = false'
+  endif
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 Plug 'jsit/toast.vim'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
