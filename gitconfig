@@ -4,6 +4,7 @@
 	username = Crides
 [core]
 	editor = nvim
+	pager = delta
 [credential]
 	useHttpPath = true
     helper = cache --timeout=3600
@@ -23,3 +24,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    line-numbers = true
+    side-by-side = true
+	syntax-theme = gruvbox
