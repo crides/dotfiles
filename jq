@@ -54,3 +54,7 @@ def median: if isarr then
     else sort | if length % 2 == 0 then (.[length / 2] + .[length / 2 - 1]) / 2 else .[(length / 2) | floor] end
     end
 else . end;
+
+def common_len($a; $b): [range([$a, $b] | map(length) | min + 1)] | map(select($a[:.] == $b[:.])) | max;
+def lines: split("\n") | .[:-1];
+def fuzzy_match($f): test($f | split("") | [""] + . + [""] | join(".*"));

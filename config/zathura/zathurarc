@@ -9,6 +9,8 @@ set scroll-step                 100
 set recolor                     false
 set recolor-keephue             true
 
+set selection-clipboard         "clipboard"
+
 set statusbar-home-tilde        true
 set window-title-home-tilde     true
 

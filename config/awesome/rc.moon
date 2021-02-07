@@ -134,9 +134,7 @@ awful.screen.connect_for_each_screen =>
     @mylayoutbox = with awful.widget.layoutbox(@)
         \buttons(gears.table.join(
             awful.button({ }, 1, -> awful.layout.inc  1),
-            awful.button({ }, 3, -> awful.layout.inc -1),
-            awful.button({ }, 4, -> awful.layout.inc  1),
-            awful.button({ }, 5, -> awful.layout.inc -1)))
+            awful.button({ }, 3, -> awful.layout.inc -1)))
 
     @mytaglist = awful.widget.taglist {
         screen: @,
@@ -411,5 +409,4 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- Autostart
 awful.spawn.easy_async("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
 awful.spawn.easy_async("picom -b")
-awful.spawn.easy_async("mpd")
 awful.spawn.easy_async("xiput disable $(xinput list | rg 'Touchpad\\s*id=(\\d+)' -or '$1')")

@@ -54,8 +54,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=65536
 SAVEHIST=65536
 setopt sharehistory appendhistory extendedglob
-setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_DUPS         # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a duplicate.
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -131,7 +131,7 @@ alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
 
-export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin"
+export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
 export BROWSER=qutebrowser
@@ -171,11 +171,6 @@ if [ -z "$UBUNTU_MENUPROXY" ]; then
   UBUNTU_MENUPROXY=1
 fi
 bindkey -r '^[/'
-
-export GTK_IM_MODULE=ibus
-export QT4_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
 
 # brocode/fw stuff
 export FW_CONFIG_DIR="$HOME/.config/fw"
@@ -231,10 +226,6 @@ z() {
 
 alias zi="z -i"
 alias zq="zoxide query"
-
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
 
 # NRF52 QMK
 export NRFSDK15_ROOT=~/gitproj/nRF5_SDK_15.0.0_a53641a

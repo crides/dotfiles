@@ -1,5 +1,5 @@
 " vi:ft=vim
-set windows library,playlist,browse
+set windows library,playlist
 set browsenumbers
 set playlistnumbers
 set windownumbers
