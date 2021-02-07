@@ -190,3 +190,21 @@
 [submodule "vim/bundle/goyo.vim"]
 	path = vim/bundle/goyo.vim
 	url = https://github.com/junegunn/goyo.vim
+[submodule "vim/bundle/bubbly.nvim"]
+	path = vim/bundle/bubbly.nvim
+	url = https://github.com/datwaft/bubbly.nvim
+[submodule "vim/bundle/zephyr-nvim"]
+	path = vim/bundle/zephyr-nvim
+	url = https://github.com/glepnir/zephyr-nvim
+[submodule "vim/bundle/splitjoin.vim"]
+	path = vim/bundle/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim
+[submodule "vim/bundle/vim-humanoid-colorscheme"]
+	path = vim/bundle/vim-humanoid-colorscheme
+	url = https://github.com/humanoid-colors/vim-humanoid-colorscheme
+[submodule "vim/bundle/vim-openscad"]
+	path = vim/bundle/vim-openscad
+	url = https://github.com/sirtaj/vim-openscad
+[submodule "vim/bundle/toast.vim"]
+	path = vim/bundle/toast.vim
+	url = https://github.com/jsit/toast.vim

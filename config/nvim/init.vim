@@ -10,6 +10,7 @@ let mapleader = " "
 call plug#begin("~/.vim/bundle")
 
 " === Language & filetype plugins ===
+Plug 'sirtaj/vim-openscad'
 Plug 'chrisbra/Colorizer'
 Plug 'urbit/hoon.vim'
 Plug 'leafo/moonscript-vim'
@@ -20,10 +21,6 @@ Plug 'vmchale/ion-vim'
 Plug 'thyrgle/vim-dyon'
 Plug 'sheerun/vim-polyglot'
 let g:python_highlight_space_errors = 0
-
-Plug 'euclio/vim-markdown-composer'
-let g:markdown_composer_open_browser = 0 " Automatically start the preview server, but not
-                                         " open the browser until :ComposerOpen
 
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_fenced_languages = ['c=c', 'bash=sh']
@@ -161,20 +158,20 @@ let g:lens#animate = 1
 Plug 'flrnprz/plastic.vim'
 Plug 'Yggdroot/indentLine'
 
-Plug 'itchyny/lightline.vim'
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
+" Plug 'itchyny/lightline.vim'
+" let g:lightline = {
+"       \ 'colorscheme': 'gruvbox',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'fugitive#head',
+"       \   'filename': 'LightlineFilename',
+"       \ },
+"       \ 'separator': { 'left': '', 'right': '' },
+"       \ 'subseparator': { 'left': '', 'right': '' }
+"       \ }
 
 function! LightlineFilename()
   let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
@@ -184,8 +181,29 @@ endfunction
 
 Plug '~/.vim/bundle/helios.vim'
 Plug 'powerline/powerline'
+
+Plug 'datwaft/bubbly.nvim'
+let g:bubbly_palette = {
+    \ "background": "#3c3836",
+    \ "foreground": "#fbf1c7",
+    \ "black": "#1d2021",
+    \ "red": "#fb4934",
+    \ "green": "#b8bb26",
+    \ "yellow": "#fabd2f",
+    \ "blue": "#83a598",
+    \ "purple": "#d3869b",
+    \ "cyan": "#8ec07c",
+    \ "white": "#fbf1c7",
+    \ "lightgrey": "#d5c4a1",
+    \ "darkgrey": "#665c54",
+    \ }
+let g:bubbly_statusline = ['mode', 'truncate', 'path', 'branch', 'signify', 'coc', 'divisor', 'diff', 'filetype', 'progress']
+
 Plug 'ayu-theme/ayu-vim'
 let ayucolor = 'dark'
+
+Plug 'glepnir/zephyr-nvim'
+Plug 'humanoid-colors/vim-humanoid-colorscheme'
 
 Plug 'morhetz/gruvbox'
 let g:gruvbox_contrast_dark = "hard"
