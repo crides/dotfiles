@@ -16,7 +16,7 @@ prev_btn\set_markup(markup {
     fg: beautiful.white,
     " 玲 "
 })
-prev_btn\buttons(awful.button({}, 1, -> MPC\prev!))
+prev_btn\buttons(awful.button({}, 2, -> MPC\prev!))
 
 next_btn = wibox.widget.textbox!
 next_btn\set_markup(markup {
@@ -24,7 +24,7 @@ next_btn\set_markup(markup {
     fg: beautiful.white,
     " 怜"
 })
-next_btn\buttons(awful.button({}, 1, -> MPC\next!))
+next_btn\buttons(awful.button({}, 2, -> MPC\next!))
 
 textbox = wibox.widget {
     {
