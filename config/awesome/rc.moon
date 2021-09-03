@@ -16,7 +16,7 @@ lain = require "lain"
 beautiful.init require "theme"
 export APW = require "apw/widget"
 
-naughty.config.defaults.position = "top_middle"
+naughty.config.defaults.position = "bottom_middle"
 naughty.config.presets.normal.fg = beautiful.black
 naughty.config.presets.normal.bg = beautiful.white
 naughty.config.presets.critical.fg = beautiful.black
@@ -58,6 +58,7 @@ root.buttons(gears.table.join(
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.floating
+    awful.layout.suit.fair
     awful.layout.suit.tile
     awful.layout.suit.tile.bottom
     awful.layout.suit.max      -- like tabbed layout

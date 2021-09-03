@@ -1,7 +1,7 @@
 # Base16 Helios
 # Author: Alex Meyer (https://github.com/reyemxela)
 
-set   font                      "Iosevka 13"
+set   font                      "Iosevka Term 13"
 set   guioptions                csv
 
 set scroll-step                 100

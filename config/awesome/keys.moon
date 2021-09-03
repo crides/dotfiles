@@ -9,8 +9,9 @@ term = "alacritty"
 -- new_term = full_path "new_term.sh"
 new_term = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
+HOME = os.getenv("HOME")
 editor_cmd = term .. " -e " .. editor
-browser = "qutebrowser"
+browser = HOME .. "/gitproj/qutebrowser/qutebrowser.py"
 
 keys = gears.table.join(
     awful.key(

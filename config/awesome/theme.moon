@@ -6,7 +6,7 @@ colors = xresources.get_current_theme!
 gfs = require "gears.filesystem"
 themes_path = gfs.get_themes_dir!
 taglist_square_size = dpi 4
-font = "Iosevka"
+font = "Iosevka Term"
 
 with {}
     .font = font .. " 10"
@@ -130,4 +130,3 @@ with {}
 
     -- Define the icon theme for application icons. If not set then the icons
     -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-    .icon_theme = nil

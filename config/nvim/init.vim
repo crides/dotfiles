@@ -21,8 +21,7 @@ Plug 'vmchale/ion-vim'
 Plug 'thyrgle/vim-dyon'
 Plug 'sheerun/vim-polyglot'
 let g:python_highlight_space_errors = 0
-
-Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_conceal = 0
 let g:vim_markdown_fenced_languages = ['c=c', 'bash=sh']
 let g:vim_markdown_math = 1
 
@@ -31,54 +30,44 @@ Plug 'lervag/vimtex'
 let g:vimtex_quickfix_mode=0
 autocmd FileType tex :set conceallevel=1
 autocmd FileType tex :hi Conceal ctermfg=7 ctermbg=236
-let g:tex_conceal='abdmg'
+let g:tex_conceal='mgs'
 let g:latex_to_unicode_auto = 1
 let g:tex_flavor = "latex"
 
 Plug 'gluon-lang/vim-gluon'
 
 " === Completion ===
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<c-space>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<c-F1>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Plug 'norcalli/snippets.nvim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-function! s:check_back_space() abort
-  let col = col('.')
-  return !(col - 1) || (col == col('$')) || getline('.')[col - 1]  =~ '\s'
-endfunction
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-" " Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/completion-nvim'
+let g:completion_enable_snippet = 'UltiSnips'
+autocmd BufEnter * lua require('completion').on_attach()
+set completeopt=menuone,noselect,noinsert
+let g:completion_chain_complete_list = [
+    \ {'complete_items': ['lsp', '<c-n>', '<c-p>']},
+    \ {'mode': '<c-p>'},
+\]
+let g:completion_auto_change_source = 1
+imap <c-j> <Plug>(completion_next_source)
+imap <c-k> <Plug>(completion_prev_source)
+
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
+Plug 'simrat39/rust-tools.nvim'
+
+" Optional dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
@@ -95,6 +84,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'majutsushi/tagbar'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
+Plug 'liuchengxu/vista.vim'
 Plug 'machakann/vim-sandwich'
 autocmd Filetype rust let b:sandwich_magicchar_f_patterns = [
                           \   {
@@ -150,28 +140,27 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-Plug 'jsit/toast.vim'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 let g:lens#animate = 1
 
-Plug 'flrnprz/plastic.vim'
 Plug 'Yggdroot/indentLine'
+let g:indentLine_setConceal = 0
 
-" Plug 'itchyny/lightline.vim'
-" let g:lightline = {
-"       \ 'colorscheme': 'gruvbox',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'fugitive#head',
-"       \   'filename': 'LightlineFilename',
-"       \ },
-"       \ 'separator': { 'left': '', 'right': '' },
-"       \ 'subseparator': { 'left': '', 'right': '' }
-"       \ }
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
 
 function! LightlineFilename()
   let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
@@ -179,38 +168,23 @@ function! LightlineFilename()
   return filename . modified
 endfunction
 
-Plug '~/.vim/bundle/helios.vim'
 Plug 'powerline/powerline'
-
-Plug 'datwaft/bubbly.nvim'
-let g:bubbly_palette = {
-    \ "background": "#3c3836",
-    \ "foreground": "#fbf1c7",
-    \ "black": "#1d2021",
-    \ "red": "#fb4934",
-    \ "green": "#b8bb26",
-    \ "yellow": "#fabd2f",
-    \ "blue": "#83a598",
-    \ "purple": "#d3869b",
-    \ "cyan": "#8ec07c",
-    \ "white": "#fbf1c7",
-    \ "lightgrey": "#d5c4a1",
-    \ "darkgrey": "#665c54",
-    \ }
-let g:bubbly_statusline = ['mode', 'truncate', 'path', 'branch', 'signify', 'coc', 'divisor', 'diff', 'filetype', 'progress']
-
-Plug 'ayu-theme/ayu-vim'
-let ayucolor = 'dark'
-
-Plug 'glepnir/zephyr-nvim'
-Plug 'humanoid-colors/vim-humanoid-colorscheme'
-
-Plug 'morhetz/gruvbox'
-let g:gruvbox_contrast_dark = "hard"
-
-Plug 'arcticicestudio/nord-vim'
-let g:nord_italic_comments = 1
-let g:nord_italic = 1
+" Plug 'datwaft/bubbly.nvim'
+" let g:bubbly_palette = {
+"     \ "background": "#3c3836",
+"     \ "foreground": "#fbf1c7",
+"     \ "black": "#1d2021",
+"     \ "red": "#fb4934",
+"     \ "green": "#b8bb26",
+"     \ "yellow": "#fabd2f",
+"     \ "blue": "#83a598",
+"     \ "purple": "#d3869b",
+"     \ "cyan": "#8ec07c",
+"     \ "white": "#fbf1c7",
+"     \ "lightgrey": "#d5c4a1",
+"     \ "darkgrey": "#665c54",
+"     \ }
+" let g:bubbly_statusline = ['mode', 'truncate', 'path', 'branch', 'signify', 'coc', 'divisor', 'diff', 'filetype', 'progress']
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdtree'
@@ -227,6 +201,29 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Unknown"   : "??"
     \ }
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'folke/todo-comments.nvim'
+
+let g:neovide_cursor_vfx_mode = "sonicboom"
+
+" === Colorscheme ===
+Plug 'glepnir/oceanic-material'
+Plug 'jsit/toast.vim'
+Plug 'flrnprz/plastic.vim'
+Plug '~/.vim/bundle/helios.vim'
+
+Plug 'ayu-theme/ayu-vim'
+let ayucolor = 'dark'
+
+Plug 'glepnir/zephyr-nvim'
+Plug 'humanoid-colors/vim-humanoid-colorscheme'
+
+Plug 'morhetz/gruvbox'
+let g:gruvbox_contrast_dark = "hard"
+
+Plug 'arcticicestudio/nord-vim'
+let g:nord_italic_comments = 1
+let g:nord_italic = 1
 
 " === Other stuff ===
 Plug 'godlygeek/tabular'
@@ -234,6 +231,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
 
@@ -270,8 +268,9 @@ set timeout timeoutlen=3000 ttimeoutlen=50
 set conceallevel=0
 set autochdir
 set t_Co=256
-set foldmethod=marker    " Save folds by marker
-set foldmarker=[--[,]--]
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevelstart=99
 set guicursor=
 set cursorline
 set title titlestring=%{expand(\"%:~\")}%(\ %M%)%(\ %a%)
@@ -279,7 +278,9 @@ set noshowmode
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set clipboard=unnamedplus,unnamed
 set magic
-set guifont=Iosevka:h8
+set guifont=Iosevka\ Term:h16
+set signcolumn=auto:9
+set wildmode=longest,full
 
 " Colorscheme
 set bg=dark
@@ -294,8 +295,8 @@ noremap <Down> gj
 inoremap <Up> gk
 inoremap <Down> gj
 " Make n & N and , & ; always search forward
-" nnoremap <expr> n 'Nn'[v:searchforward]
-" nnoremap <expr> N 'nN'[v:searchforward]
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <expr> ; ',;'[getcharsearch().forward]
 nnoremap <expr> , ';,'[getcharsearch().forward]
 
@@ -315,7 +316,209 @@ com -nargs=0 W w
 com -nargs=0 Wq wq
 com -nargs=0 Wqa wqa
 
-autocmd FileType rust :set mps+=<:> tw=110
-autocmd FileType dart :set sw=2 ts=2
-autocmd FileType markdown :set conceallevel=0
+au BufRead,BufNewFile *.maude setfiletype maude
+au BufRead,BufNewFile *.fm setfiletype maude
+autocmd FileType maude source ~/.vim/maude.vim
+augroup rust
+    function Rust()
+        set mps+=<:> tw=110
+        " Code navigation shortcuts
+        noremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+        noremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+        noremap <silent> gLD    <cmd>lua vim.lsp.buf.implementation()<CR>
+        noremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+        noremap <silent> 1gLD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+        noremap <silent> gLR    <cmd>lua vim.lsp.buf.references()<CR>
+        noremap <silent> gL0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+        noremap <silent> gLW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+        noremap <silent> gLd    <cmd>lua vim.lsp.buf.declaration()<CR>
+        nnoremap <silent> gLa    <cmd>lua vim.lsp.buf.code_action()<CR>
+        setl omnifunc=v:lua.vim.lsp.omnifunc
+        " Show diagnostic popup on cursor hold
+        " au CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+
+        " Goto previous/next diagnostic warning/error
+        nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+        nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+        " Enable type inlay hints
+        autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require('lsp_extensions').inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+        imap <silent> <c-space> <Plug>(completion_trigger)
+    endfunction
+    au!
+    au FileType rust call Rust()
+augroup end
+autocmd FileType dart set sw=2 ts=2
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+function! s:check_back_space() abort
+  let col = col('.')
+  return !(col - 1) || (col == col('$')) || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ "\<Plug>(completion_trigger)"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+lua << EOF
+--require("nvim-treesitter.configs").setup {
+--    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+--    ignore_install = { }, -- List of parsers to ignore installing
+--    highlight = {
+--        enable = true,              -- false will disable the whole extension
+--        disable = { },  -- list of language that will be disabled
+--    },
+--    indent = {
+--        enable = true,
+--    },
+--}
+
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--     vim.lsp.diagnostic.on_publish_diagnostics {
+--         virtual_text = true,
+--         signs = true,
+--         update_in_insert = true,
+--     }
+-- )
+
+require('rust-tools').setup {
+    tools = { -- rust-tools options
+        -- automatically set inlay hints (type hints)
+        -- There is an issue due to which the hints are not applied on the first
+        -- opened file. For now, write to the file to trigger a reapplication of
+        -- the hints or just run :RustSetInlayHints.
+        -- default: true
+        autoSetHints = true,
+
+        -- whether to show hover actions inside the hover window
+        -- this overrides the default hover handler
+        -- default: true
+        hover_with_actions = true,
+
+        runnables = {
+            -- whether to use telescope for selection menu or not
+            -- default: true
+            use_telescope = true
+
+            -- rest of the opts are forwarded to telescope
+        },
+
+        inlay_hints = {
+            -- wheter to show parameter hints with the inlay hints or not
+            -- default: true
+            show_parameter_hints = true,
+
+            -- prefix for parameter hints
+            -- default: "<-"
+            parameter_hints_prefix = "<-",
+
+            -- prefix for all the other hints (type, chaining)
+            -- default: "=>"
+            other_hints_prefix  = "=>",
+
+            -- whether to align to the lenght of the longest line in the file
+            max_len_align = false,
+
+            -- padding from the left if max_len_align is true
+            max_len_align_padding = 1,
+
+            -- whether to align to the extreme right or not
+            right_align = false,
+
+            -- padding from the right if right_align is true
+            right_align_padding = 7,
+        },
+
+        hover_actions = {
+            -- the border that is used for the hover window
+            -- see vim.api.nvim_open_win()
+            border = {
+              {"╭", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╮", "FloatBorder"},
+              {"│", "FloatBorder"},
+              {"╯", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╰", "FloatBorder"},
+              {"│", "FloatBorder"}
+            },
+        }
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+    server = {
+        on_attach = function() end,
+        settings = {
+            ["rust-analyzer"] = {
+                completion = {
+                    addCallArgumentSnippets = true,
+                },
+                assist = {
+                    importGranularity = "module",
+                    importPrefix = "by_self",
+                },
+                cargo = {
+                    loadOutDirsFromCheck = true
+                },
+                procMacro = {
+                    enable = true
+                },
+            },
+        },
+    },
+}
+
+require("trouble").setup {}
+
+require("todo-comments").setup {
+    signs = true, -- show icons in the signs column
+    -- keywords recognized as todo comments
+    keywords = {
+        FIX = {
+            icon = " ", -- icon used for the sign, and in search results
+            color = "error", -- can be a hex color, or a named color (see below)
+            alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+            -- signs = false, -- configure signs for some keywords individually
+        },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+    },
+    -- highlighting of the line containing the todo comment
+    -- * before: highlights before the keyword (typically comment characters)
+    -- * keyword: highlights of the keyword
+    -- * after: highlights after the keyword (todo text)
+    highlight = {
+        before = "", -- "fg" or "bg" or empty
+        keyword = "bg", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+        after = "fg", -- "fg" or "bg" or empty
+        pattern = " (KEYWORDS)([: ].+|$)",
+    },
+    -- list of named colors where we try to extract the guifg from the
+    -- list of hilight groups or use the hex color if hl not found as a fallback
+    colors = {
+        error = { "LspDiagnosticsDefaultError", "ErrorMsg", "#DC2626" },
+        warning = { "LspDiagnosticsDefaultWarning", "WarningMsg", "#FBBF24" },
+        info = { "LspDiagnosticsDefaultInformation", "#2563EB" },
+        hint = { "LspDiagnosticsDefaultHint", "#10B981" },
+        default = { "Identifier", "#7C3AED" },
+    },
+    search = {
+        command = "rg",
+        args = {
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+        },
+        pattern = " (KEYWORDS)([: ].+|$)",
+    },
+    -- regex that will be used to match keywords.
+    -- don't replace the (KEYWORDS) placeholder
+}
+EOF

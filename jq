@@ -58,3 +58,17 @@ else . end;
 def common_len($a; $b): [range([$a, $b] | map(length) | min + 1)] | map(select($a[:.] == $b[:.])) | max;
 def lines: split("\n") | .[:-1];
 def fuzzy_match($f): test($f | split("") | [""] + . + [""] | join(".*"));
+def count: group_by(.) | map([.[0], length]);
+def count_val: group_by(.) | map(length);
+def count_str: group_by(.) | map({key: .[0], value: length}) | from_entries;
+def count_tostr: group_by(.) | map({key: (.[0] | tostring), value: length}) | from_entries;
+def enumerate: [[range(length)], .] | transpose;
+def find(f):
+    reduce .[] as $val (null;
+        if . == null and ($val | f) then $val
+        else . end);
+def find_index(f):
+    enumerate
+    | reduce .[] as [$ind, $val] (null;
+        if . == null and ($val | f) then $ind
+        else . end);

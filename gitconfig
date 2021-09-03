@@ -31,4 +31,4 @@
 [delta]
     line-numbers = true
     side-by-side = true
-	syntax-theme = gruvbox
+	syntax-theme = gruvbox-dark

@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/home/steven/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export ZSH_DISABLE_COMPFIX=true
 
 # Uncomment the following line to use hyphen-insensitive completion.
@@ -59,7 +59,7 @@ setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a du
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/steven/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -94,7 +94,7 @@ alias egrep='egrep --color=auto'
 alias l='exa -F'
 alias ll='exa -alF --git'
 alias la='exa -a'
-alias fm='vifm'
+alias fm='nnn .'
 lt() {
     if [ -z "$@" ]; then
         exa -lT --git *
@@ -117,11 +117,19 @@ alias uniq='awk "!v[\$0]++"'
 alias py='python3'
 alias py3='python3'
 alias py2='python2'
+alias ipy='ipython3'
 alias inplace='inplace -w'
 alias git=hub
 alias ccze='ccze -mansi'
 alias pup='pup -c -p --charset utf8'
-alias weather='http --body wttr.in/Champaign\?mQF'
+weather() {
+    cols=$(tput cols)
+    if [ $cols -gt 125 ]; then
+        http --body wttr.in/Champaign\?mQF1
+    else
+        http --body wttr.in/Champaign\?mQF1n
+    fi
+}
 alias gblog='git blog'
 alias gt='git tree'
 alias zathura='zathura --fork'
@@ -131,7 +139,7 @@ alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
 
-export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin"
+export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
 export BROWSER=qutebrowser
@@ -139,7 +147,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # QMK
-export QMK_HOME=/home/steven/gitproj/qmk_firmware
+export QMK_HOME=$HOME/gitproj/qmk_firmware
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -188,60 +196,36 @@ export RTV_EDITOR="nvim '+set ft=markdown' '+norm Go'"
 # exec 2>&3 3>&-
 
 # opam configuration
-test -r /home/steven/.opam/opam-init/init.zsh && . /home/steven/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 XAUTHORITY=$HOME/.Xauthority
 
-PATH="/home/steven/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/steven/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/steven/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/steven/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/steven/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 eval "$(starship init zsh)"
 
 # Nix
-if [ -e /home/steven/.nix-profile/etc/profile.d/nix.sh ]; then . /home/steven/.nix-profile/etc/profile.d/nix.sh; fi
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
 # ajeetdsouza/zoxide
-_zoxide_precmd() {
-    zoxide add
-}
-
-precmd_functions+=_zoxide_precmd
-
-z() {
-    if [ $# -ne 0 ]; then
-        _Z_RESULT=$(zoxide query "$@")
-        case $_Z_RESULT in
-            "query: "*)
-                cd "${_Z_RESULT:7}"
-                ;;
-            *)
-                echo "${_Z_RESULT}"
-                ;;
-        esac
-    fi
-}
-
-alias zi="z -i"
-alias zq="zoxide query"
-
-# NRF52 QMK
-export NRFSDK15_ROOT=~/gitproj/nRF5_SDK_15.0.0_a53641a
+eval "$(zoxide init zsh)"
 
 # jarun/nnn
 # key-bookmark pairs
 export NNN_BMS="d:$HOME/Desktop;D:$HOME/Downloads;p:$HOME/Pictures;h:$HOME;m:/run/media/$USER;M:$HOME/Music;g:$HOME/gitproj"
-export NNN_OPTS="deSH"                                           # binary options to nnn
+export NNN_OPTS="deSHxrR"                                           # binary options to nnn
 export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"               # custom opener (see plugin nuke)
-export NNN_PLUG='d:dragdrop'           # key-plugin (or cmd) pairs
-export NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip)$"                 # archives [default: bzip2, (g)zip, tar]
-export NNN_COLORS='1234' #(/'#0a1b2c3d'/'#0a1b2c3d;1234')        # context colors [default: '4444' (blue)]
+export NNN_PLUG='d:dragdrop;u:_udiskie-umount $nnn*;j:autojump'           # key-plugin (or cmd) pairs
+export NNN_ARCHIVE='\.(7z|bz2|gz|tar|tgz|zip|xz)$'                 # archives [default: bzip2, (g)zip, tar]
+export NNN_COLORS='12341234' #(/'#0a1b2c3d'/'#0a1b2c3d;1234')        # context colors [default: '4444' (blue)]
 export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'                    # file-specific colors
 # export NNN_TRASH=1                                               # use desktop Trash [default: delete]
 # export NNN_SEL='/tmp/.sel'                                       # custom selection file
-# export NNN_FIFO='/tmp/nnn.fifo'                                  # FIFO to write hovered file path to
+export NNN_FIFO='/tmp/nnn.fifo'                                  # FIFO to write hovered file path to
 # export NNN_LOCKER='saidar -c'                                    # terminal locker
 # export NNN_MCLICK='^R'                                           # key emulated by middle mouse click
 ### NNN_FCOLORS, in order
@@ -261,7 +245,12 @@ source "$HOME/gitproj/nnn/misc/quitcd/quitcd.bash_zsh"
 
 # Zephyr
 export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
-export ZEPHYR_SDK_INSTALL_DIR=/home/steven/.local/zephyr-sdk-0.11.2
+export ZEPHYR_SDK_INSTALL_DIR=$HOME/.local/zephyr-sdk-0.12.4
 
 # sharkdp/bat
 export BAT_CONFIG_PATH=$HOME/.config/bat.conf
+
+source /home/steven/.config/broot/launcher/bash/br
+
+# Batman!
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
