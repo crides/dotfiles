@@ -1,0 +1,26 @@
+// vi:ft=css
+configuration {
+    modi: "window,run,drun,combi,keys";
+    font: "Iosevka Term 12";
+    location: 2;
+    yoffset: 40;
+    fixed-num-lines: true;
+    show-icons: true;
+    show-icons:         true;
+    /* icon-theme:         "Paper"; */
+    cycle:              true;
+    disable-history:    false;
+    modi:               "drun";
+    display-drun:       "apps";
+}
+@theme "gruvbox-dark"
+
+listview {
+    lines: 10;
+    columns: 2;
+    hide-scrollbar:     true;
+}
+
+window {
+    width: 1920;
+}
