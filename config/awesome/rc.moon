@@ -128,14 +128,12 @@ awful.screen.connect_for_each_screen =>
     set_wallpaper(@)
 
     -- Each screen has its own tag table.
-    awful.tag { "1", "2", "3", "4", "5", "6", "7", "8" }, @, awful.layout.suit.max
+    awful.tag { "main", "side", "skol", "work", "game", "util" }, @, awful.layout.suit.max
 
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     @mylayoutbox = with awful.widget.layoutbox(@)
-        \buttons(gears.table.join(
-            awful.button({ }, 1, -> awful.layout.inc  1),
-            awful.button({ }, 3, -> awful.layout.inc -1)))
+        \buttons(keys.layout_buttons)
 
     @mytaglist = awful.widget.taglist {
         screen: @,
@@ -168,7 +166,7 @@ awful.screen.connect_for_each_screen =>
                 @widget.color = beautiful.green if client.focus and gtable.hasitem(client.focus\tags!, cur_tag)
                 @get_children_by_id('index_role')[1].markup = markup {
                     fg: index_color
-                    index
+                    cur_tag.name
                 }
         },
         buttons: keys.taglist_buttons
@@ -357,25 +355,10 @@ client.connect_signal("manage", (c) ->
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", (c) ->
-    -- buttons for the titlebar
-    buttons = gears.table.join(
-        awful.button({ }, 1, ->
-            c\emit_signal("request::activate", "titlebar", {raise: true})
-            awful.mouse.client.move(c)
-        ),
-        awful.button({ }, 2, ->
-            c.minimized = true
-        ),
-        awful.button({ }, 3, ->
-            c\emit_signal("request::activate", "titlebar", {raise: true})
-            awful.mouse.client.resize(c)
-        )
-    )
-
     awful.titlebar(c)\setup {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
-            buttons: buttons,
+            buttons: keys.window_title_buttons(c),
             layout: wibox.layout.fixed.horizontal
         },
         { -- Middle
@@ -383,7 +366,7 @@ client.connect_signal("request::titlebars", (c) ->
                 align: "center",
                 widget: awful.titlebar.widget.titlewidget(c)
             },
-            buttons: buttons,
+            buttons: keys.window_title_buttons(c),
             layout: wibox.layout.flex.horizontal
         },
         { -- Right

@@ -1,3 +1,4 @@
+naughty = require "naughty"
 gears = require "gears"
 awful = require "awful"
 hotkeys_popup = require "awful.hotkeys_popup"
@@ -193,22 +194,33 @@ taglist_buttons = gears.table.join(
     awful.button({ }, 3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, => client.focus\toggle_tag @ if client.focus),
     awful.button({ }, 4, => awful.tag.viewprev @screen),
-    awful.button({ }, 5, => awful.tag.viewnext @screen)
-)
+    awful.button({ }, 5, => awful.tag.viewnext @screen))
 
 tasklist_buttons = gears.table.join(
-    awful.button({ }, 1, =>
-        if @ == client.focus
-            @minimized = true
-        else
-            @emit_signal("request::activate", "tasklist", {raise: true})),
+    awful.button({ }, 1, => @emit_signal("request::activate", "tasklist", {raise: true})),
     awful.button({ }, 2, => @kill!),
+    awful.button({ }, 3, => @minimized = not @minimized),
     awful.button({ }, 4, -> awful.client.focus.byidx -1),
-    awful.button({ }, 5, -> awful.client.focus.byidx 1))
+    awful.button({ }, 5, -> awful.client.focus.byidx 1),
+    awful.button({ }, 8, -> awful.client.swap.byidx -1),
+    awful.button({ }, 9, -> awful.client.swap.byidx 1))
+
+-- buttons for the titlebar
+window_title_buttons = (c) -> gears.table.join(
+    awful.button({ }, 1, ->
+        c\emit_signal("request::activate", "titlebar", {raise: true})
+        awful.mouse.client.move(c)
+    ),
+    awful.button({ }, 2, ->
+        c.minimized = true
+    ),
+    awful.button({ }, 3, ->
+        c\emit_signal("request::activate", "titlebar", {raise: true})
+        awful.mouse.client.resize(c)
+    ))
 
 clientbuttons = gears.table.join(
-    awful.button({ }, 1, =>
-        @emit_signal("request::activate", "mouse_click", {raise: true})),
+    awful.button({ }, 1, => @emit_signal("request::activate", "mouse_click", {raise: true})),
     awful.button({ modkey }, 1, =>
         @emit_signal("request::activate", "mouse_click", {raise: true})
         awful.mouse.client.move(@)),
@@ -220,10 +232,16 @@ clientbuttons = gears.table.join(
         @emit_signal("request::activate", "mouse_click", {raise: true})
         awful.mouse.client.resize(@)))
 
+layout_buttons = gears.table.join(
+    awful.button({ }, 1, -> awful.layout.inc  1),
+    awful.button({ }, 3, -> awful.layout.inc -1))
+
 {
     :keys
     :clientkeys
     :taglist_buttons
     :tasklist_buttons
     :clientbuttons
+    :window_title_buttons
+    :layout_buttons
 }
