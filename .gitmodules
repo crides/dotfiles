@@ -225,7 +225,7 @@
 	url = https://github.com/nvim-lua/lsp_extensions.nvim
 [submodule "vim/bundle/nvim-lspconfig"]
 	path = vim/bundle/nvim-lspconfig
-	url = https://github.com/nvim-lua/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
 [submodule "vim/bundle/oceanic-material"]
 	path = vim/bundle/oceanic-material
 	url = https://github.com/glepnir/oceanic-material
