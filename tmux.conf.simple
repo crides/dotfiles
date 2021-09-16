@@ -1,0 +1,70 @@
+set -g default-terminal 'xterm-256color'
+set -g mouse on
+set -g renumber-windows on
+set -ga terminal-overrides ',xterm-256color:Tc'
+set -g set-titles on
+set -g set-titles-string '#S / #W'
+set -g display-time 0
+set -g history-limit 16384
+set -g allow-rename off
+
+# Copy & Paste stuff
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel 'xsel -ib'
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xsel -ib'
+bind -T root MouseDown2Pane run-shell 'tmux set-buffer "$(xsel -ob)" && tmux paste-buffer'
+bind ] run-shell 'tmux set-buffer -- "$(xsel -ob)" && tmux paste-buffer'
+
+# More keybinds
+bind W choose-tree -Zw
+# Change window; if is in zoom then will end up in zoomed state
+bind w if-shell -F "#{window_zoomed_flag}" "select-pane -t :.+; resize-pane -Z" "select-pane -t :.+"
+
+# Split, new in same directory
+bind % split-window -h -c '#{pane_current_path}'
+bind '"' split-window -c '#{pane_current_path}'
+# Insert window at the next index, not at the end, also in same directory
+bind C run-shell "tmux new-window -a -c '#{pane_current_path}' -n \"$(tmux display -p '#W')\""
+
+# Pane navigation
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+bind \\ select-window -l
+
+bind -r M-Up    resize-pane -U
+bind -r M-Down  resize-pane -D
+bind -r M-Left  resize-pane -L
+bind -r M-Right resize-pane -R
+bind -r C-Up    resize-pane -U 5
+bind -r C-Down  resize-pane -D 5
+bind -r C-Left  resize-pane -L 5
+bind -r C-Right resize-pane -R 5
+
+# Window movement
+bind -r S-Left swap-window -t -1
+bind -r S-Right swap-window -t +1
+bind -n MouseDown1StatusLeft choose-tree -Zw
+bind -n WheelDownStatusLeft switch-client -n
+bind -n WheelUpStatusLeft switch-client -p
+bind -n MouseDown1StatusRight send-keys C-b
+
+# Reload config
+bind R source-file ~/.tmux.conf
+
+# Fast escapes
+set -sg escape-time 10
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# vi mode
+setw -g mode-keys vi
+set -g window-status-format "#{?#{==:#I,1},#[bg=red],}#{?#{==:#I,2},#[bg=green],}#{?#{==:#I,3},#[bg=yellow],}#{?#{==:#I,4},#[bg=blue],}#{?#{==:#I,5},#[bg=magenta],}#{?#{==:#I,6},#[bg=cyan],} #W#{?window_flags,#{window_flags}, } " 
+set -g window-status-current-format "#{?#{==:#I,1},#[bg=red],}#{?#{==:#I,2},#[bg=green],}#{?#{==:#I,3},#[bg=yellow],}#{?#{==:#I,4},#[bg=blue],}#{?#{==:#I,5},#[bg=magenta],}#{?#{==:#I,6},#[bg=cyan],} #[fg=colour0,bold]#W#{?window_flags,#{window_flags}, } " 
+set -g status-style bg=black,fg=black 
+set -g status-right "#{?client_prefix,#[bg=magenta],#[bg=colour8]} %Y.%m.%d..%H.%M " 
+set -g status-right-style fg=white,bg=colour8 
+set -g status-left " #[bold][#S] #[bg=black] " 
+set -g status-left-style fg=white,bg=colour8
