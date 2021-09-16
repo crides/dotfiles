@@ -208,3 +208,42 @@
 [submodule "vim/bundle/toast.vim"]
 	path = vim/bundle/toast.vim
 	url = https://github.com/jsit/toast.vim
+[submodule "vim/bundle/Colorizer"]
+    path = vim/bundle/Colorizer
+    url = https://github.com/chrisbra/Colorizer
+[submodule "vim/bundle/vista.vim"]
+	path = vim/bundle/vista.vim
+	url = https://github.com/liuchengxu/vista.vim.git
+[submodule "vim/bundle/vim-rhubarb"]
+	path = vim/bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
+[submodule "vim/bundle/completion-nvim"]
+	path = vim/bundle/completion-nvim
+	url = https://github.com/nvim-lua/completion-nvim
+[submodule "vim/bundle/lsp_extensions.nvim"]
+	path = vim/bundle/lsp_extensions.nvim
+	url = https://github.com/nvim-lua/lsp_extensions.nvim
+[submodule "vim/bundle/nvim-lspconfig"]
+	path = vim/bundle/nvim-lspconfig
+	url = https://github.com/nvim-lua/nvim-lspconfig
+[submodule "vim/bundle/oceanic-material"]
+	path = vim/bundle/oceanic-material
+	url = https://github.com/glepnir/oceanic-material
+[submodule "vim/bundle/plenary.nvim"]
+	path = vim/bundle/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "vim/bundle/rust-tools.nvim"]
+	path = vim/bundle/rust-tools.nvim
+	url = https://github.com/simrat39/rust-tools.nvim
+[submodule "vim/bundle/trouble.nvim"]
+	path = vim/bundle/trouble.nvim
+	url = https://github.com/folke/trouble.nvim
+[submodule "vim/bundle/telescope.nvim"]
+	path = vim/bundle/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule "vim/bundle/todo-comments.nvim"]
+	path = vim/bundle/todo-comments.nvim
+	url = https://github.com/folke/todo-comments.nvim
+[submodule "vim/bundle/popup.nvim"]
+	path = vim/bundle/popup.nvim
+	url = https://github.com/nvim-lua/popup.nvim
