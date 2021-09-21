@@ -72,3 +72,5 @@ def find_index(f):
     | reduce .[] as [$ind, $val] (null;
         if . == null and ($val | f) then $ind
         else . end);
+def chunk($n): . as $in | [range(0; length; $n)] | map($in[.:.+$n]);
+def window($n): . as $in | [range(0; (length - $n + 1))] | map($in[.:.+$n]);
