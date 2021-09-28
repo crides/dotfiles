@@ -1,0 +1,4 @@
+--type-add=dts:*.{dts,dtsi,overlay,dts.*}
+--type-add=ld:*.ld
+--type-add=linker:include:ld
+--type-add=kconfig:Kconfig.*
