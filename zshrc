@@ -139,6 +139,8 @@ alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
 
+alias pdflatex="pdflatex -interaction=batchmode"
+
 export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
@@ -254,3 +256,24 @@ source /home/steven/.config/broot/launcher/bash/br
 
 # Batman!
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+export OPENSCADPATH="/usr/share/openscad/libraries:$OPENSCADPATH"
+function solid() {
+    file="$1"
+    openscad "$file.scad" & disown
+    echo "$file.py" | entr python3 "$file.py"
+}
+
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgreprc
+
+function scad-render() {
+    out="$1"; shift
+    while [ $# -gt 0 ]; do
+        /usr/local/bin/openscad $1.scad -o $1.$out
+        shift
+    done
+}
+
+alias gv="nvim +G '+wincmd o'"
+alias mpv="mpv --script-opts=ytdl_hook-ytdl_path=yt-dlp --ytdl-raw-options=external-downloader=aria2c,throttled-rate=300k"
+source /etc/nhi/nhi.zsh
