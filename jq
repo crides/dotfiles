@@ -45,8 +45,8 @@ def strip: lstrip | rstrip;
 def isstr: type == "string";
 def isobj: type == "object";
 def isarr: type == "array";
-def toupper: ascii_upcase;
-def tolower: ascii_downcase;
+def upper: ascii_upcase;
+def lower: ascii_downcase;
 
 def median: if isarr then
     if length == 0 then
@@ -57,6 +57,9 @@ else . end;
 
 def common_len($a; $b): [range([$a, $b] | map(length) | min + 1)] | map(select($a[:.] == $b[:.])) | max;
 def lines: split("\n") | .[:-1];
+def unlines: join("\n");
+def words: split(" ") | map(select(length != 0));
+def unwords: join(" ");
 def fuzzy_match($f): test($f | split("") | [""] + . + [""] | join(".*"));
 def count: group_by(.) | map([.[0], length]);
 def count_val: group_by(.) | map(length);
@@ -74,3 +77,23 @@ def find_index(f):
         else . end);
 def chunk($n): . as $in | [range(0; length; $n)] | map($in[.:.+$n]);
 def window($n): . as $in | [range(0; (length - $n + 1))] | map($in[.:.+$n]);
+
+def fromhex:
+    def moveto($l; $g; $o): if . >= $l and . <= $g then . - $l + $o else . end;
+    sub("^0[xX]"; "") | explode | map(moveto(48; 57; 0) | moveto(97; 102; 10) | moveto(65; 70; 10))
+    | reverse | enumerate | map(pow(16; .[0]) * .[1]) | add;
+def split_space: split(" ") | map(select(length > 0));
+
+def color(n; s): "\u001b[\(n)m\(s)\u001b[0m";
+def red(s): color(31; s);
+def green(s): color(32; s);
+def yellow(s): color(33; s);
+def blue(s): color(34; s);
+def purple(s): color(35; s);
+def cyan(s): color(36; s);
+def red_bg(s): color(41; s);
+def green_bg(s): color(42; s);
+def yellow_bg(s): color(43; s);
+def blue_bg(s): color(44; s);
+def purple_bg(s): color(45; s);
+def cyan_bg(s): color(46; s);
