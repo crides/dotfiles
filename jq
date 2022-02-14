@@ -63,8 +63,8 @@ def unwords: join(" ");
 def fuzzy_match($f): test($f | split("") | [""] + . + [""] | join(".*"));
 def count: group_by(.) | map([.[0], length]);
 def count_val: group_by(.) | map(length);
-def count_str: group_by(.) | map({key: .[0], value: length}) | from_entries;
-def count_tostr: group_by(.) | map({key: (.[0] | tostring), value: length}) | from_entries;
+def count_str: group_by(.) | map({key: .[0], value: length}) | sort_by(.value) | from_entries;
+def count_tostr: group_by(.) | map({key: (.[0] | tostring), value: length}) | sort_by(.value) | from_entries;
 def enumerate: [[range(length)], .] | transpose;
 def find(f):
     reduce .[] as $val (null;
