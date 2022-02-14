@@ -76,7 +76,7 @@ def find_index(f):
         if . == null and ($val | f) then $ind
         else . end);
 def chunk($n): . as $in | [range(0; length; $n)] | map($in[.:.+$n]);
-def window($n): . as $in | [range(0; (length - $n + 1))] | map($in[.:.+$n]);
+def window($n): . as $in | [range(0; ([(length - $n + 1), 1] | max))] | map($in[.:.+$n]);
 
 def fromhex:
     def moveto($l; $g; $o): if . >= $l and . <= $g then . - $l + $o else . end;
