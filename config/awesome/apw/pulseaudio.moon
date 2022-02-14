@@ -31,20 +31,9 @@ class Pulseaudio
         return out
 
     -- Sets the volume of the default sink to vol from 0 to 1.
-    set_volume: (vol) =>
-        if vol > 1 then
-            vol = 1
-
-        if vol < 0 then
-            vol = 0
-
-        vol = vol * 0x10000
-        -- set…
-        @run("pactl set-sink-volume " .. @default_sink .. " " .. string.format("0x%x", math.floor(vol)))
-
-        -- …and update values
+    step_volume: (vol) =>
+        @run("pactl set-sink-volume " .. @default_sink .. " " .. string.format("%+d%%", vol))
         @update_state!
-
 
     -- Toggles the mute flag of the default default_sink.
     toggle_mute: =>

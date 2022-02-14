@@ -135,6 +135,7 @@ awful.screen.connect_for_each_screen =>
     @mylayoutbox = with awful.widget.layoutbox(@)
         \buttons(keys.layout_buttons)
 
+    screen = @
     @mytaglist = awful.widget.taglist {
         screen: @,
         filter: awful.widget.taglist.filter.all,
@@ -154,10 +155,9 @@ awful.screen.connect_for_each_screen =>
                 widget: wibox.container.margin,
             },
             widget: wibox.container.background,
-            create_callback: (c3, index, objects) =>
-                @update_callback(c3, index, objects)
+            create_callback: (c3, index, objects) => @update_callback(c3, index, objects)
             update_callback: (c3, index, objects) =>
-                cur_tag = awful.screen.focused!.tags[index]
+                cur_tag = screen.tags[index]
                 index_color, @bg = if cur_tag.selected
                     beautiful.taglist_fg_focus, beautiful.taglist_bg_focus
                 else

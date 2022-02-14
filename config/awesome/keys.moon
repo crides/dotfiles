@@ -188,9 +188,11 @@ for i = 1, 8 do
                     client.focus\toggle_tag(tag) if tag,
             {description: "toggle focused client on tag #" .. i, group: "tag"}))
 
+move_clients_to_screen = (tag, dst) -> tag\swap(dst.tags[tag.index])
+
 taglist_buttons = gears.table.join(
     awful.button({ }, 1, => @view_only!),
-    awful.button({ modkey }, 1, => client.focus\move_to_tag @ if client.focus),
+    awful.button({ }, 2, => client.focus\move_to_tag @ if client.focus),
     awful.button({ }, 3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, => client.focus\toggle_tag @ if client.focus),
     awful.button({ }, 4, => awful.tag.viewprev @screen),
@@ -211,13 +213,13 @@ window_title_buttons = (c) -> gears.table.join(
         c\emit_signal("request::activate", "titlebar", {raise: true})
         awful.mouse.client.move(c)
     ),
-    awful.button({ }, 2, ->
-        c.minimized = true
-    ),
+    awful.button({ }, 2, -> c.minimized = true),
     awful.button({ }, 3, ->
         c\emit_signal("request::activate", "titlebar", {raise: true})
         awful.mouse.client.resize(c)
-    ))
+    ),
+    awful.button({ }, 8, -> c\move_to_screen(c.screen.index - 1)),
+    awful.button({ }, 9, -> c\move_to_screen(c.screen.index - 1)))
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, => @emit_signal("request::activate", "mouse_click", {raise: true})),

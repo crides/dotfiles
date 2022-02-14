@@ -12,7 +12,7 @@ margin_right  = 0         -- right margin in pixels of progressbar
 margin_left   = 0         -- left margin in pixels of progressbar
 margin_top    = 0         -- top margin in pixels of progressbar
 margin_bottom = 0         -- bottom margin in pixels of progressbar
-step          = 0.01      -- stepsize for volume change (ranges from 0 to 1)
+step          = 1      -- stepsize for volume change (ranges from 0 to 1)
 mixer         = 'pavucontrol' -- mixer command
 text_color    = beautiful.apw_fg_normal
 bg_color      = beautiful.apw_bg_normal
@@ -36,11 +36,11 @@ widget.set_mixer = (command) ->
 	mixer = command
 
 widget.up = ->
-	p\set_volume(p.volume + step)
+	p\step_volume(step)
 	_update!
 
 widget.down = ->
-	p\set_volume(p.volume - step)
+	p\step_volume(-step)
 	_update!
 
 widget.toggle_mute = ->
