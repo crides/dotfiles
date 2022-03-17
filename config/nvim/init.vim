@@ -37,28 +37,15 @@ let g:tex_flavor = "latex"
 Plug 'gluon-lang/vim-gluon'
 
 " === Completion ===
-" Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<c-F1>"
-" let g:UltiSnipsJumpForwardTrigger="<c-j>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-" Plug 'norcalli/snippets.nvim'
-
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'nvim-lua/completion-nvim'
-let g:completion_enable_snippet = 'UltiSnips'
-autocmd BufEnter * lua require('completion').on_attach()
-set completeopt=menuone,noselect,noinsert
-let g:completion_chain_complete_list = [
-    \ {'complete_items': ['lsp', '<c-n>', '<c-p>']},
-    \ {'mode': '<c-p>'},
-\]
-let g:completion_auto_change_source = 1
-imap <c-j> <Plug>(completion_next_source)
-imap <c-k> <Plug>(completion_prev_source)
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/vim-vsnip'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
@@ -341,8 +328,6 @@ augroup rust
         nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
         nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
         " Enable type inlay hints
-        autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require('lsp_extensions').inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
-        imap <silent> <c-space> <Plug>(completion_trigger)
     endfunction
     au!
     au FileType rust call Rust()
@@ -350,15 +335,6 @@ augroup end
 autocmd FileType dart set sw=2 ts=2
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-function! s:check_back_space() abort
-  let col = col('.')
-  return !(col - 1) || (col == col('$')) || getline('.')[col - 1]  =~ '\s'
-endfunction
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ "\<Plug>(completion_trigger)"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 lua << EOF
 --require("nvim-treesitter.configs").setup {
@@ -381,6 +357,11 @@ lua << EOF
 --     }
 -- )
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+--     capabilities = capabilities
+-- }
 require('rust-tools').setup {
     tools = { -- rust-tools options
         -- automatically set inlay hints (type hints)
@@ -406,7 +387,7 @@ require('rust-tools').setup {
         inlay_hints = {
             -- wheter to show parameter hints with the inlay hints or not
             -- default: true
-            show_parameter_hints = true,
+            show_parameter_hints = false,
 
             -- prefix for parameter hints
             -- default: "<-"
@@ -449,6 +430,7 @@ require('rust-tools').setup {
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
+        capabilities = capabilities,
         on_attach = function() end,
         settings = {
             ["rust-analyzer"] = {
@@ -521,4 +503,84 @@ require("todo-comments").setup {
     -- regex that will be used to match keywords.
     -- don't replace the (KEYWORDS) placeholder
 }
+
+local cmp = require 'cmp'
+local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
+cmp.setup({
+    snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        end,
+    },
+    mapping = {
+        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif vim.fn["vsnip#available"](1) == 1 then
+                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+            end
+        end, { "i", "s" }),
+
+        ["<S-Tab>"] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+                feedkey("<Plug>(vsnip-jump-prev)", "")
+            end
+        end, { "i", "s" }),
+    },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'vsnip' }, -- For vsnip users.
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it. 
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
 EOF
