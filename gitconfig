@@ -4,7 +4,6 @@
 	username = Crides
 [core]
 	editor = nvim
-	pager = delta
 [credential]
 	useHttpPath = true
     helper = cache --timeout=3600
@@ -17,6 +16,7 @@
 [alias]
     blog = log --graph --all --format=format:'%w(80,0,0)%C(bold magenta)%h%C(reset) %C(white)%ad%C(reset) %C(dim white)(%ar)%C(reset) %C(bold dim white)%aN%C(auto)%+D%C(reset)%n         %C(bold white)%s%C(reset)%+b%n'#%C(dim white)Committed: %cD%n%C(dim white)By: %cn <%ce>%C(reset)%n'
     tree = log --graph --all --format=format:'%C(bold magenta)%h%C(auto)%d%C(reset) %s%C(reset)'
+    treeo = log --graph --format=format:'%C(bold magenta)%h%C(auto)%d%C(reset) %s%C(reset)'
 [pull]
 	rebase = true
 [filter "lfs"]
@@ -25,10 +25,14 @@
 	process = git-lfs filter-process
 	required = true
 
-[interactive]
-    diffFilter = delta --color-only
+; [interactive]
+;     diffFilter = delta --color-only
 
-[delta]
-    line-numbers = true
-    side-by-side = true
-	syntax-theme = gruvbox-dark
+; [delta]
+;     line-numbers = true
+;     side-by-side = true
+; 	syntax-theme = gruvbox-dark
+[diff]
+	external = difft
+[init]
+	defaultBranch = main
