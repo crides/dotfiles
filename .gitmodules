@@ -265,3 +265,9 @@
 [submodule "vim/bundle/vim-vsnip"]
 	path = vim/bundle/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip
+[submodule "vim/bundle/nvim-web-devicons"]
+	path = vim/bundle/nvim-web-devicons
+	url = https://github.com/kyazdani42/nvim-web-devicons
+[submodule "vim/bundle/github-nvim-theme"]
+	path = vim/bundle/github-nvim-theme
+	url = https://github.com/projekt0n/github-nvim-theme.git

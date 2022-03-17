@@ -10,6 +10,7 @@ let mapleader = " "
 call plug#begin("~/.vim/bundle")
 
 " === Language & filetype plugins ===
+Plug '~/gitproj/k/vim-k', {'frozen': 1}
 Plug 'sirtaj/vim-openscad'
 Plug 'chrisbra/Colorizer'
 Plug 'urbit/hoon.vim'
@@ -30,6 +31,7 @@ Plug 'lervag/vimtex'
 let g:vimtex_quickfix_mode=0
 autocmd FileType tex :set conceallevel=1
 autocmd FileType tex :hi Conceal ctermfg=7 ctermbg=236
+autocmd FileType tex :set iskeyword-=$
 let g:tex_conceal='mgs'
 let g:latex_to_unicode_auto = 1
 let g:tex_flavor = "latex"
@@ -198,6 +200,7 @@ Plug 'glepnir/oceanic-material'
 Plug 'jsit/toast.vim'
 Plug 'flrnprz/plastic.vim'
 Plug '~/.vim/bundle/helios.vim'
+Plug 'projekt0n/github-nvim-theme'
 
 Plug 'ayu-theme/ayu-vim'
 let ayucolor = 'dark'
@@ -268,6 +271,7 @@ set magic
 set guifont=Iosevka\ Term:h16
 set signcolumn=auto:9
 set wildmode=longest,full
+set inccommand=nosplit
 
 " Colorscheme
 set bg=dark
@@ -334,7 +338,16 @@ augroup rust
 augroup end
 autocmd FileType dart set sw=2 ts=2
 autocmd FileType json syntax match Comment +\/\/.\+$+
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+" ZMK keymap
+au BufRead,BufNewFile *.overlay,*.keymap,*.dtsi setfiletype dts
+au FileType dts set iskeyword+=-
 
+" MLIR
+au BufRead,BufNewFile *.mlir setfiletype mlir
 
 lua << EOF
 --require("nvim-treesitter.configs").setup {
