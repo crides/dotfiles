@@ -20,6 +20,12 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 
 config.load_autoconfig()
 
+# tree tabs: https://github.com/qutebrowser/qutebrowser/pull/4602
+try:
+    c.tabs.tree_tabs = True
+except AttributeError:
+    pass
+
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
 # Type: List of QtColor, or QtColor
