@@ -45,7 +45,7 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github httpie colored-man-pages command-not-found zsh-syntax-highlighting cargo)
+plugins=(git github httpie colored-man-pages command-not-found zsh-syntax-highlighting rust)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -130,8 +130,10 @@ weather() {
         http --body wttr.in/Champaign\?mQF1n
     fi
 }
+alias gi='git init'
 alias gblog='git blog'
 alias gt='git tree'
+alias gsa='git submodule add'
 alias zathura='zathura --fork'
 alias pacman='pacman --color always'
 alias yay='yay --color always'
@@ -141,10 +143,10 @@ alias mkdir="mkdir -vp"
 
 alias pdflatex="pdflatex -interaction=batchmode"
 
-export PATH="$PATH:$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin"
+export PATH="$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$HOME/.dotnet/tools:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
-export BROWSER=qutebrowser
+export BROWSER="$HOME/gitproj/qutebrowser/qutebrowser.py"
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -246,8 +248,7 @@ export NNN_FIFO='/tmp/nnn.fifo'                                  # FIFO to write
 source "$HOME/gitproj/nnn/misc/quitcd/quitcd.bash_zsh"
 
 # Zephyr
-export ZEPHYR_TOOLCHAIN_VARIANT=zephyr
-export ZEPHYR_SDK_INSTALL_DIR=$HOME/.local/zephyr-sdk-0.12.4
+export ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
 
 # sharkdp/bat
 export BAT_CONFIG_PATH=$HOME/.config/bat.conf
@@ -260,8 +261,13 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export OPENSCADPATH="/usr/share/openscad/libraries:$OPENSCADPATH"
 function solid() {
     file="$1"
-    openscad "$file.scad" & disown
-    echo "$file.py" | entr python3 "$file.py"
+    openscad "$file.scad" &
+    echo "$file.py" | entr python3 "$file.py" &
+    scad=$(jobs -l | head -n1 | grep -o '[0-9]\+' | tail -n+2 | tail -n1)
+    entr=$(jobs -l | tail -n1 | grep -o '[0-9]\+' | head -n1)
+    wait $scad
+    kill $entr
+    fg
 }
 
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgreprc
@@ -277,3 +283,12 @@ function scad-render() {
 alias gv="nvim +G '+wincmd o'"
 alias mpv="mpv --script-opts=ytdl_hook-ytdl_path=yt-dlp --ytdl-raw-options=external-downloader=aria2c,throttled-rate=300k"
 source /etc/nhi/nhi.zsh
+
+alias k="$HOME/gitproj/k/k"
+alias ki="rlwrap -S' :: ' $HOME/gitproj/k/{,repl.}k"
+
+export BOOGIE_DIR="$HOME/.dotnet/tools"
+export CORRAL_DIR="$HOME/.dotnet/tools"
+
+# PaulJuliusMartinez/jless
+alias jess=jless
