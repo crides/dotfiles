@@ -5,12 +5,8 @@ show_always = true
 disabled = false
 format = "[$time](bold yellow) "
 
-[python]
-disabled = true
-
 [memory_usage]
 disabled = false
-threshold = 85
 
 [character]
 success_symbol = "[\ue0b0](bold green)"
