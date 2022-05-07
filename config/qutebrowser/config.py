@@ -3,9 +3,6 @@
 #   qute://help/configuring.html
 #   qute://help/settings.html
 
-# Uncomment this to still load settings configured via autoconfig.yml
-# config.load_autoconfig()
-
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'file://*')
@@ -640,3 +637,5 @@ c.colors.tabs.selected.even.bg = base05
 # Background color for webpages if unset (or empty to use the theme's
 # color).
 # c.colors.webpage.bg = base00
+
+c.hints.selectors["yt-vid"] = [f"{link[:-1]}*=\"{src}\"]" for src in ["/youtu.be", "/www.youtube.com/watch", "/watch"] for link in c.hints.selectors["links"]]
