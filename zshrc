@@ -53,7 +53,7 @@ source $ZSH/oh-my-zsh.sh
 HISTFILE=~/.zsh_history
 HISTSIZE=65536
 SAVEHIST=65536
-setopt sharehistory appendhistory extendedglob
+setopt INC_APPEND_HISTORY_TIME appendhistory extendedglob
 setopt HIST_IGNORE_DUPS         # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a duplicate.
 bindkey -v
@@ -249,6 +249,7 @@ source "$HOME/gitproj/nnn/misc/quitcd/quitcd.bash_zsh"
 
 # Zephyr
 export ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
+export GNUARMEMB_TOOLCHAIN_PATH=/usr
 
 # sharkdp/bat
 export BAT_CONFIG_PATH=$HOME/.config/bat.conf
