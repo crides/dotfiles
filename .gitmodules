@@ -271,3 +271,12 @@
 [submodule "vim/bundle/github-nvim-theme"]
 	path = vim/bundle/github-nvim-theme
 	url = https://github.com/projekt0n/github-nvim-theme.git
+[submodule "vim/bundle/playground"]
+	path = vim/bundle/playground
+	url = https://github.com/nvim-treesitter/playground
+[submodule "vim/bundle/vim-rooter"]
+	path = vim/bundle/vim-rooter
+	url = https://github.com/airblade/vim-rooter
+[submodule "vim/bundle/nvim-treesitter"]
+	path = vim/bundle/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
