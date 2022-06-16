@@ -51,11 +51,12 @@ source $ZSH/oh-my-zsh.sh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zsh_history
-HISTSIZE=65536
-SAVEHIST=65536
+HISTSIZE=1048576
+SAVEHIST=1048576
 setopt INC_APPEND_HISTORY_TIME appendhistory extendedglob
 setopt HIST_IGNORE_DUPS         # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_REDUCE_BLANKS
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -96,12 +97,13 @@ alias ll='exa -alF --git'
 alias la='exa -a'
 alias fm='nnn .'
 lt() {
-    if [ -z "$@" ]; then
+    if [ $# -eq 0 ]; then
         exa -lT --git *
     else
         exa -lT --git $@
     fi
 }
+alias lg='exa -lT --git --git-ignore'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -109,6 +111,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias e='nvim'
 alias vi='nvim'
+alias v='helix'
 #alias dog='highlight -O ansi --force'
 # dog() { bat --color=always $@ | less }
 alias dog='bat --color=always --pager=never --theme ansi-dark'
@@ -292,4 +295,23 @@ export BOOGIE_DIR="$HOME/.dotnet/tools"
 export CORRAL_DIR="$HOME/.dotnet/tools"
 
 # PaulJuliusMartinez/jless
-alias jess=jless
+alias lj=jless
+
+ds() {
+    # datasheet
+    if [ $# -ne 1 ]; then
+        echo 'usage: ds <part name>'
+        return 1
+    fi
+    pdf=$(fd $1 -ie pdf "$HOME/Downloads/datasheet")
+    if [ -e "$pdf" ]; then
+        zathura "$pdf"
+    else
+        if [ $(echo "$pdf" | wc -l) -gt 1 ]; then
+            echo 'Too many results:'
+            fd $1 -ie pdf "$HOME/Downloads/datasheet" -x echo {/.}
+            return 2
+        fi
+        return 1
+    fi
+}
