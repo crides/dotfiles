@@ -1,4 +1,3 @@
-set nocompatible              " be iMproved, required
 filetype off                  " required
 set helplang=en
 lang en_US.utf8
@@ -38,6 +37,7 @@ Plug 'gluon-lang/vim-gluon'
 " === Completion ===
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -92,9 +92,19 @@ highlight HighlightedyankRegion gui=reverse cterm=reverse
 
 Plug 'junegunn/vim-peekaboo'
 Plug 'wellle/targets.vim'
+let g:targets_aiAI = 'aIAi'
+
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'kana/vim-textobj-user'
 Plug 'adriaanzon/vim-textobj-matchit'
+Plug 'chaoren/vim-wordmotion'
+let g:wordmotion_nomap = 1
+nmap gw          <Plug>WordMotion_w
+nmap gb          <Plug>WordMotion_b
+nmap ge          <Plug>WordMotion_e
+nmap gh          <Plug>WordMotion_ge
+omap agw         <Plug>WordMotion_aw
+omap igw         <Plug>WordMotion_iw
 
 " === UI ===
 Plug 'junegunn/goyo.vim'
@@ -155,7 +165,7 @@ function! LightlineFilename()
   return filename . modified
 endfunction
 
-Plug 'powerline/powerline'
+" Plug 'powerline/powerline'
 " Plug 'datwaft/bubbly.nvim'
 " let g:bubbly_palette = {
 "     \ "background": "#3c3836",
@@ -190,8 +200,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'folke/todo-comments.nvim'
-
-let g:neovide_cursor_vfx_mode = "sonicboom"
 
 " === Colorscheme ===
 Plug 'glepnir/oceanic-material'
@@ -232,6 +240,7 @@ highlight GitGutterDelete ctermfg=1
 
 Plug 'mhinz/vim-startify'
 " source ~/.vim/bundle/fzf/plugin/fzf.vim
+Plug 'johmsalas/text-case.nvim'
 
 call plug#end()
 
@@ -289,6 +298,22 @@ nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <expr> ; ',;'[getcharsearch().forward]
 nnoremap <expr> , ';,'[getcharsearch().forward]
+" au CursorHold * lua vim.diagnostic.show_line_diagnostics()
+nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> g] <cmd>lua vim.diagnostic.goto_next()<CR>
+noremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+noremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+noremap <silent> gLi    <cmd>lua vim.lsp.buf.implementation()<CR>
+noremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+noremap <silent> gLD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+noremap <silent> gLr    <cmd>lua vim.lsp.buf.references()<CR>
+noremap <silent> gLW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+noremap <silent> gLd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gLa    <cmd>lua vim.lsp.buf.code_action()<CR>
+for i in range(1, 9)
+    exe "noremap <leader>" . i . " " . i . "gt"
+endfor
+noremap <leader>0 10gt
 
 packadd termdebug
 
@@ -313,23 +338,9 @@ augroup rust
     function Rust()
         set mps+=<:> tw=110
         " Code navigation shortcuts
-        noremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-        noremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-        noremap <silent> gLD    <cmd>lua vim.lsp.buf.implementation()<CR>
-        noremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-        noremap <silent> 1gLD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-        noremap <silent> gLR    <cmd>lua vim.lsp.buf.references()<CR>
-        noremap <silent> gL0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-        noremap <silent> gLW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-        noremap <silent> gLd    <cmd>lua vim.lsp.buf.declaration()<CR>
-        nnoremap <silent> gLa    <cmd>lua vim.lsp.buf.code_action()<CR>
         setl omnifunc=v:lua.vim.lsp.omnifunc
-        " Show diagnostic popup on cursor hold
-        " au CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
         " Goto previous/next diagnostic warning/error
-        nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-        nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
         " Enable type inlay hints
     endfunction
     au!
@@ -351,6 +362,6 @@ au BufRead,BufNewFile *.ll setfiletype llvm
 
 hi link TSPunctDelimiter Normal
 hi link TSPunctBracket Normal
-hi link pythonTSOperatorKeyword Conditional
+hi link pythonTSKeywordOperator Conditional
 
 exe "luafile " . split(&rtp, ",")[0] . "/config.lua"
