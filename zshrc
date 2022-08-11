@@ -111,15 +111,16 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias e='nvim'
 alias vi='nvim'
-alias v='helix'
+alias hx='helix'
+alias v='neovide --multigrid'
 #alias dog='highlight -O ansi --force'
 # dog() { bat --color=always $@ | less }
 alias dog='bat --color=always --pager=never --theme ansi-dark'
 alias lynx='lynx -use_mouse'
 alias uniq='awk "!v[\$0]++"'
 alias py='python3'
-alias py3='python3'
-alias py2='python2'
+alias py8='python3.8'
+alias pip8='python3.8 -m pip'
 alias ipy='ipython3'
 alias inplace='inplace -w'
 alias git=hub
@@ -145,8 +146,11 @@ alias cp="cp -riv"
 alias mkdir="mkdir -vp"
 
 alias pdflatex="pdflatex -interaction=batchmode"
+mc() {
+    mkdir -p $1 && cd $1
+}
 
-export PATH="$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$HOME/.dotnet/tools:$PATH"
+export PATH="$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
 export BROWSER="$HOME/gitproj/qutebrowser/qutebrowser.py"
@@ -221,35 +225,6 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 # ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
 
-# jarun/nnn
-# key-bookmark pairs
-export NNN_BMS="d:$HOME/Desktop;D:$HOME/Downloads;p:$HOME/Pictures;h:$HOME;m:/run/media/$USER;M:$HOME/Music;g:$HOME/gitproj"
-export NNN_OPTS="deSHxrR"                                           # binary options to nnn
-export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"               # custom opener (see plugin nuke)
-export NNN_PLUG='d:dragdrop;u:_udiskie-umount $nnn*;j:autojump'           # key-plugin (or cmd) pairs
-export NNN_ARCHIVE='\.(7z|bz2|gz|tar|tgz|zip|xz)$'                 # archives [default: bzip2, (g)zip, tar]
-export NNN_COLORS='12341234' #(/'#0a1b2c3d'/'#0a1b2c3d;1234')        # context colors [default: '4444' (blue)]
-export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'                    # file-specific colors
-# export NNN_TRASH=1                                               # use desktop Trash [default: delete]
-# export NNN_SEL='/tmp/.sel'                                       # custom selection file
-export NNN_FIFO='/tmp/nnn.fifo'                                  # FIFO to write hovered file path to
-# export NNN_LOCKER='saidar -c'                                    # terminal locker
-# export NNN_MCLICK='^R'                                           # key emulated by middle mouse click
-### NNN_FCOLORS, in order
-# Block device              c1
-# Char device               e2
-# Directory                 27
-# Executable                2e
-# Regular                   00
-# Hard link                 60
-# Symbolic link             33
-# Missing OR file details   f7
-# Orphaned symbolic link    c6
-# FIFO                      d6
-# Socket                    ab
-# Unknown OR 0B regular/exe c4
-source "$HOME/gitproj/nnn/misc/quitcd/quitcd.bash_zsh"
-
 # Zephyr
 export ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
 export GNUARMEMB_TOOLCHAIN_PATH=/usr
@@ -286,7 +261,7 @@ function scad-render() {
 
 alias gv="nvim +G '+wincmd o'"
 alias mpv="mpv --script-opts=ytdl_hook-ytdl_path=yt-dlp --ytdl-raw-options=external-downloader=aria2c,throttled-rate=300k"
-source /etc/nhi/nhi.zsh
+# source /etc/nhi/nhi.zsh
 
 alias k="$HOME/gitproj/k/k"
 alias ki="rlwrap -S' :: ' $HOME/gitproj/k/{,repl.}k"
