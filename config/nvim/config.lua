@@ -292,3 +292,8 @@ require('nvim-treesitter.configs').setup {
         },
     },
 }
+require('nu').setup {}
+-- require("lsp_lines").register_lsp_virtual_lines()
+vim.diagnostic.config({
+    virtual_text = false,
+})

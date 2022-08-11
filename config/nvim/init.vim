@@ -33,6 +33,7 @@ let g:latex_to_unicode_auto = 1
 let g:tex_flavor = "latex"
 
 Plug 'gluon-lang/vim-gluon'
+Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 
 " === Completion ===
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -46,6 +47,8 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
@@ -263,7 +266,7 @@ set backspace=indent,eol,start
 set mouse=a
 set modeline
 set timeout timeoutlen=3000 ttimeoutlen=50
-set conceallevel=0
+set conceallevel=1
 set autochdir
 set t_Co=256
 set foldmethod=expr
@@ -276,10 +279,11 @@ set noshowmode
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 set clipboard=unnamedplus,unnamed
 set magic
-set guifont=Iosevka\ Term:h16
+set guifont=Iosevka\ Term:h11
 set signcolumn=auto:9
 set wildmode=longest,full
 set inccommand=nosplit
+set scrollback=100000
 
 " Colorscheme
 set bg=dark
@@ -299,17 +303,18 @@ nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <expr> ; ',;'[getcharsearch().forward]
 nnoremap <expr> , ';,'[getcharsearch().forward]
 " au CursorHold * lua vim.diagnostic.show_line_diagnostics()
-nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> g] <cmd>lua vim.diagnostic.goto_next()<CR>
-noremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-noremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-noremap <silent> gLi    <cmd>lua vim.lsp.buf.implementation()<CR>
-noremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-noremap <silent> gLD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-noremap <silent> gLr    <cmd>lua vim.lsp.buf.references()<CR>
-noremap <silent> gLW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-noremap <silent> gLd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gLa    <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>[ <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>] <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>K  <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>i  <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <leader>k  <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <leader>D  <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> <leader>r  <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>W  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>o  <cmd>lua vim.diagnostic.open_float()<CR>
 for i in range(1, 9)
     exe "noremap <leader>" . i . " " . i . "gt"
 endfor
@@ -321,7 +326,7 @@ packadd termdebug
 if !exists('g:lasttab')
   let g:lasttab = 1
 endif
-nmap gl :exe "tabn ".g:lasttab<CR>
+noremap <silent> <leader>l <cmd>exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 " avoid mispress of <SHIFT> when writing and quiting
@@ -365,3 +370,5 @@ hi link TSPunctBracket Normal
 hi link pythonTSKeywordOperator Conditional
 
 exe "luafile " . split(&rtp, ",")[0] . "/config.lua"
+
+let g:neovide_cursor_vfx_mode = "torpedo"
