@@ -293,6 +293,9 @@ awful.rules.rules = {
         name: {
             "Event Tester",  -- xev.
         },
+        class: {
+            "float",
+        },
         role: {
             "AlarmWindow",  -- Thunderbird's calendar.
             "ConfigManager",  -- Thunderbird's about:config.
