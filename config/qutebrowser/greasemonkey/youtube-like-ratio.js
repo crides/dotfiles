@@ -21,22 +21,24 @@ function update_count(view_text, like_text) {
             like_par.insertBefore(appended, like_par.lastChild);
         }
     }
-    appended.textContent = "/ " + (views / likes).toFixed(2);
+    appended.textContent = "/" + String.fromCharCode(160) + (views / likes).toFixed(2);
 }
 
 observed = false;
 
 document.addEventListener('load', () => {
-    const view_text = document.querySelector("ytd-video-view-count-renderer span");
-    const like_text = document.querySelector("yt-formatted-string#text.ytd-toggle-button-renderer");
-    if (view_text === null || like_text === null) {
-        return;
-    }
     if (!observed) {
+        const view_text = document.querySelector("ytd-video-view-count-renderer span");
+        const like_bar = document.querySelectorAll("yt-formatted-string#text.ytd-toggle-button-renderer");
+        if (view_text === null || like_bar.length === 0) {
+            return;
+        }
+        like_bar[like_bar.length - 1].hidden = true;
         const observer = new MutationObserver(list => {
-            update_count(view_text, like_text);
+            update_count(view_text, like_bar[like_bar.length - 2]);
         });
-        observer.observe(like_text, {attributeFilter: ["aria-label"]});
-        update_count(view_text, like_text);
+        observer.observe(like_bar[like_bar.length - 2], {attributeFilter: ["aria-label"]});
+        update_count(view_text, like_bar[like_bar.length - 2]);
+        observed = true;
     }
 }, true);

@@ -7,10 +7,12 @@
 // @exclude      *://*.youtube.com/subscribe_embed?*
 // ==/UserScript==
 document.addEventListener('load', () => {
-    try { document.querySelector('.ad-showing video').currentTime = 99999 } catch {}
-    try { document.querySelector('.videoAdUiSkipButton,.ytp-ad-skip-button').click() } catch {}
-    const text_ad = [...document.querySelectorAll('.ytp-ad-text-overlay')][0];
-    if (text_ad) {
-        text_ad.hidden = true;
-    }
+    setTimeout(function() {
+        try { document.querySelector('.ad-showing video').currentTime = 99999 } catch {}
+        try { document.querySelector('.videoAdUiSkipButton,.ytp-ad-skip-button').click() } catch {}
+        const text_ad = [...document.querySelectorAll('.ytp-ad-text-overlay')][0];
+        if (text_ad) {
+            text_ad.hidden = true;
+        }
+    }, 100);
 }, true);
