@@ -1,0 +1,65 @@
+#!/bin/bash
+
+if [ "$#" == "0" ] ;
+then
+    echo "Session daemon missing command" >&2
+    echo "USAGE: $0 command [args...]"
+    echo "Executes given command with args only once per XDG seat (session)."
+    echo "Keeps PID and log of the executed command."
+    exit 1
+fi
+
+COMMAND=$1
+shift
+
+NAME="${COMMAND##*/}"
+PIDFILE=~/.cache/session-daemon/$NAME-$XDG_SEAT.pid
+LOGFILE=~/.cache/session-daemon/$NAME-$XDG_SEAT.log
+PID=""
+PIDDIR="${PIDFILE%/*}"
+LOGDIR="${LOGFILE%/*}"
+
+mkdir -p $PIDDIR
+if [ $? -ne 0 ];
+then
+    echo "Session daemon PIDDIR not there: $PIDDIR" >&2
+    exit 2
+fi
+
+mkdir -p $LOGDIR
+if [ $? -ne 0 ];
+then
+    echo "Session daemon LOGDIR not there: $LOGDIR" >&2
+    exit 2
+fi
+
+if [ -e "$PIDFILE" ] ; 
+then 
+    echo "Session daemon '$NAME' PIDFILE found: $PIDFILE"
+    PID=`cat "$PIDFILE"` 
+    echo "Session daemon '$NAME' PID found: $PID"
+else
+    echo "Session daemon '$NAME' PIDFILE NOT found: $PIDFILE"
+fi
+
+if [ "$PID" ] && kill -0 "$PID" 2>/dev/null ; 
+then
+    echo "Session daemon '$NAME' was already running with PID $PID" >&2
+    exit 3
+fi
+
+echo "Session daemon running $COMMAND $* > $LOGFILE 2>&1"
+$COMMAND $* > "$LOGFILE" 2>&1 &
+PID=$!
+ERR=$?
+sleep 1
+
+if [ "$PID" ] && [  $ERR == 0 ] && kill -0 "$PID" 2>/dev/null;
+then
+    echo -n $PID > "$PIDFILE"
+    echo "Session daemon '$NAME' started with PID $PID"
+else
+    echo "Session daemon '$NAME' did not start or finished early. PID: $PID, ERR: $ERR" >&2
+    cat "$LOGFILE" >&2
+    exit 4
+fi

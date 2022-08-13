@@ -11,6 +11,7 @@ gtable = require "gears.table"
 require "util"
 keys = require "keys"
 lain = require "lain"
+HOME = os.getenv("HOME")
 
 -- Init sub-widgets
 beautiful.init require "theme"
@@ -396,4 +397,4 @@ client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal
 -- Autostart
 awful.spawn.easy_async("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
 awful.spawn.easy_async("picom -b")
-awful.spawn.easy_async("xiput disable $(xinput list | rg 'Touchpad\\s*id=(\\d+)' -or '$1')")
+awful.spawn.easy_async("autolock-daemon xautolock -locker " .. HOME .. "/.local/bin/lock -time 12 -detectsleep -secure")

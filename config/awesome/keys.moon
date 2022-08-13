@@ -14,7 +14,12 @@ HOME = os.getenv("HOME")
 editor_cmd = term .. " -e " .. editor
 browser = HOME .. "/gitproj/qutebrowser/qutebrowser.py"
 
+lockscreen = -> awful.util.spawn(HOME .. "/.local/bin/lock")
+
 keys = gears.table.join(
+    awful.key(
+        { modkey, "Ctrl"    }, "l",      lockscreen,
+        {description: "show help", group: "awesome"}),
     awful.key(
         { modkey,           }, "s",      hotkeys_popup.show_help,
         {description: "show help", group: "awesome"}),

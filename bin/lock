@@ -1,0 +1,32 @@
+#!/bin/bash
+
+color() {
+    xrdb -get "color$1"
+}
+
+colorff() {
+    echo "$(xrdb -get "color$1")ff"
+}
+
+i3lock \
+    --centered \
+    --image="$HOME/Pictures/wallpapers/kurzgesagt.png" \
+    --{inside,ring,separator}-color=$(colorff 0) \
+    --{inside,ring}ver-color=$(colorff 3) \
+    --{inside,ring}wrong-color=$(colorff 1) \
+    --{line,keyhl}-color=$(colorff 15) \
+    --bshl-color=$(colorff 6) \
+    --ring-width=12 --radius=64 \
+    --ind-pos="x+w/2:y+250" --date-pos='ix-180:y+120' --time-pos='ix+180:y+120' \
+    --{date,time}-color=$(colorff 15) \
+    --{date,time,layout,verif,wrong,greeter}-font='Iosevka Term' \
+    --{date,time}-align=0 \
+    --{date,time}-size=32 \
+    --date-str='%y.%m.%d' --time-str='%H:%M:%S' \
+    --greeter-pos='x+100:iy+12' \
+    --{modif,layout,verif,greeter,wrong}-color=$(colorff 15) \
+    --wrong-text='wrong!' \
+    --{verif,noinput,lock,lockfailed,greeter}-text='' \
+    --ignore-empty-password \
+    --pass-{media,screen}-keys \
+    --indicator --clock
