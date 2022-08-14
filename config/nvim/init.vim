@@ -232,6 +232,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_map_keys = 0
+
 Plug 'airblade/vim-rooter'
 let g:rooter_manual_only = 1
 
@@ -303,8 +305,8 @@ nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <expr> ; ',;'[getcharsearch().forward]
 nnoremap <expr> , ';,'[getcharsearch().forward]
 " au CursorHold * lua vim.diagnostic.show_line_diagnostics()
-nnoremap <silent> <leader>[ <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> <leader>] <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>( <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>) <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>K  <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>i  <cmd>lua vim.lsp.buf.implementation()<CR>
@@ -315,6 +317,16 @@ nnoremap <silent> <leader>W  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>o  <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> <leader>[ <Plug>(GitGutterPrevHunk)
+nnoremap <silent> <leader>] <Plug>(GitGutterNextHunk)
+nnoremap <silent> <leader>e <cmd>Telescope git_files<CR>
+onoremap ih <Plug>(GitGutterTextObjectInnerPending)
+onoremap ah <Plug>(GitGutterTextObjectOuterPending)
+xnoremap ih <Plug>(GitGutterTextObjectInnerVisual)
+xnoremap ah <Plug>(GitGutterTextObjectOuterVisual)
+nnoremap <leader>hp <Plug>(GitGutterPreviewHunk)
+nnoremap <leader>hs <Plug>(GitGutterStageHunk)
+nnoremap <leader>hu <Plug>(GitGutterUndoHunk)
 for i in range(1, 9)
     exe "noremap <leader>" . i . " " . i . "gt"
 endfor
