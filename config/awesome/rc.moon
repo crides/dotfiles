@@ -394,7 +394,8 @@ client.connect_signal("focus", (c) -> c.border_color = beautiful.border_focus)
 client.connect_signal("unfocus", (c) -> c.border_color = beautiful.border_normal)
 -- }}}
 
+local_bin = (p) -> HOME .. "/.local/bin/" .. p
 -- Autostart
 awful.spawn.easy_async("xrdb " .. full_path("gruvbox-dark-hard.Xresources"))
 awful.spawn.easy_async("picom -b")
-awful.spawn.easy_async("autolock-daemon xautolock -locker " .. HOME .. "/.local/bin/lock -time 12 -detectsleep -secure")
+awful.spawn.easy_async(local_bin("autolock-daemon") .. " xautolock -locker " .. local_bin("lock") .. " -time 12 -detectsleep -secure")

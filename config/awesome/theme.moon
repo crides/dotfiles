@@ -7,6 +7,7 @@ gfs = require "gears.filesystem"
 themes_path = gfs.get_themes_dir!
 taglist_square_size = dpi 4
 font = "Iosevka Term"
+HOME = os.getenv("HOME")
 
 with {}
     .font = font .. " 10"
@@ -104,7 +105,7 @@ with {}
     .titlebar_maximized_button_normal_active = titlebar_img("maximized_normal_active")
     .titlebar_maximized_button_focus_active = titlebar_img("maximized_focus_active")
 
-    .wallpaper = "/home/steven/Pictures/wallpapers/keeb.jpg"
+    .wallpaper = HOME .. "/Pictures/wallpapers/keeb.jpg"
 
     -- You can use your own layout icons like this:
     layout_icon = => "#{themes_path}default/layouts/#{@}.png"
