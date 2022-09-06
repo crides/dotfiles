@@ -1,1 +1,4 @@
+configuration {
+    modi: "window,run,drun,combi,keys";
+}
 @theme "center"
