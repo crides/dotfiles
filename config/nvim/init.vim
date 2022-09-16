@@ -34,6 +34,14 @@ let g:tex_flavor = "latex"
 
 Plug 'gluon-lang/vim-gluon'
 Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
+Plug 'derekelkins/agda-vim'
+Plug 'whonore/Coqtail'
+augroup CoqtailHighlights
+  autocmd!
+  autocmd ColorScheme *
+    \  hi def CoqtailSent guibg=#002800
+    \| hi def CoqtailChecked guibg=#003000
+augroup END
 
 " === Completion ===
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

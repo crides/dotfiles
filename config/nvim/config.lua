@@ -7,8 +7,16 @@
 -- )
 require("textcase").setup {}
 
+local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig').pyright.setup {
+lspconfig.ccls.setup {
+    init_options = {
+        index = {
+            threads = 1,
+        },
+    }
+}
+lspconfig.pyright.setup {
     capabilities = capabilities
 }
 require('rust-tools').setup {
@@ -19,11 +27,6 @@ require('rust-tools').setup {
         -- the hints or just run :RustSetInlayHints.
         -- default: true
         autoSetHints = true,
-
-        -- whether to show hover actions inside the hover window
-        -- this overrides the default hover handler
-        -- default: true
-        hover_with_actions = true,
 
         runnables = {
             -- whether to use telescope for selection menu or not
