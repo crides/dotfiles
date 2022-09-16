@@ -7,18 +7,33 @@
 -- )
 require("textcase").setup {}
 
-local lspconfig = require('lspconfig')
+local lspc = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-lspconfig.ccls.setup {
+lspc.ccls.setup {
     init_options = {
         index = {
             threads = 1,
         },
     }
 }
-lspconfig.pyright.setup {
+lspc.pyright.setup {
     capabilities = capabilities
 }
+lspc.texlab.setup {}
+-- lspc.ltex.setup {
+--     default_config = {
+--         cmd = { "ltex-ls" },
+--         filetypes = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex' },
+--         single_file_support = true,
+--         get_language_id = function(_, filetype)
+--             if filetype == "tex" then
+--                 return "latex"
+--             else
+--                 return filetype
+--             end
+--         end,
+--     },
+-- }
 require('rust-tools').setup {
     tools = { -- rust-tools options
         -- automatically set inlay hints (type hints)
@@ -219,6 +234,7 @@ cmp.setup.filetype('gitcommit', {
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = 'buffer' },
     }
@@ -226,6 +242,7 @@ cmp.setup.cmdline('/', {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
         { name = 'path' },
         { name = 'cmdline' },
@@ -247,7 +264,7 @@ require('nvim-treesitter.configs').setup {
         -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
         -- the name of the parser)
         -- list of language that will be disabled
-        disable = { "c", "rust" },
+        disable = { "rust" },
 
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
         -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -300,3 +317,91 @@ require('nu').setup {}
 vim.diagnostic.config({
     virtual_text = false,
 })
+
+require('mind').setup()
+
+local filename = {
+    'filename',
+    symbols = {
+        modified = '+',
+        readonly = '[RO]',
+        unnamed = '[No Name]',
+        newfile = '[New]',
+    }
+}
+
+gruvbox = require("lualine.themes.gruvbox")
+for _, mode in ipairs({"insert", "visual", "command", "replace"}) do
+    gruvbox[mode].b = gruvbox.normal.b
+    gruvbox[mode].c = gruvbox.normal.c
+end
+z_style = { fg = gruvbox.normal.a.fg, bg = gruvbox.normal.a.bg }
+for _, mode in ipairs({"normal", "insert", "visual", "command", "replace", "inactive"}) do
+    gruvbox[mode].z = z_style
+end
+require('lualine').setup {
+    options = {
+        theme = gruvbox,
+        icons_enabled = true,
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {filename},
+        lualine_c = {
+            {
+                'branch',
+                icons_enabled = false,
+            },
+            'diff',
+            {
+                'diagnostics',
+                sections = { 'error', 'warn' },
+            },
+        },
+        lualine_x = {
+            'encoding',
+            {
+                'fileformat',
+                symbols = {
+                    unix = ' ', -- e712
+                    dos = ' ',  -- e70f
+                    mac = ' ',  -- e711
+                },
+            },
+            'filetype',
+        },
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    inactive_sections = {
+        lualine_c = {filename},
+        lualine_x = {'progress'},
+        lualine_y = {'location'},
+    },
+    tabline = {
+        lualine_c = {
+            {
+                'tabs',
+                mode = 2,
+                tabs_color = { active = gruvbox.normal.z, inactive = gruvbox.normal.b },
+            },
+        },
+    },
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+}
