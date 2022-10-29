@@ -216,7 +216,6 @@ highlight GitGutterDelete ctermfg=1
 Plug 'mhinz/vim-startify'
 " source ~/.vim/bundle/fzf/plugin/fzf.vim
 Plug 'johmsalas/text-case.nvim'
-Plug 'phaazon/mind.nvim'
 
 call plug#end()
 

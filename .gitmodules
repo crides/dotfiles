@@ -280,3 +280,30 @@
 [submodule "vim/bundle/nvim-treesitter"]
 	path = vim/bundle/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "vim/bundle/Coqtail"]
+	path = vim/bundle/Coqtail
+	url = https://github.com/whonore/Coqtail.git
+[submodule "vim/bundle/agda-vim"]
+	path = vim/bundle/agda-vim
+	url = https://github.com/derekelkins/agda-vim.git
+[submodule "vim/bundle/lsp_lines.nvim"]
+	path = vim/bundle/lsp_lines.nvim
+	url = origin\thttps://git.sr.ht/~whynothugo/lsp_lines.nvim
+[submodule "vim/bundle/lualine.nvim"]
+	path = vim/bundle/lualine.nvim
+	url = origin\tgit@github.com:crides/lualine.nvim.git
+[submodule "vim/bundle/null-ls.nvim"]
+	path = vim/bundle/null-ls.nvim
+	url = origin\thttps://github.com/jose-elias-alvarez/null-ls.nvim.git
+[submodule "vim/bundle/nvim-nu"]
+	path = vim/bundle/nvim-nu
+	url = origin\thttps://github.com/LhKipp/nvim-nu.git
+[submodule "vim/bundle/nvim-treesitter-textobjects"]
+	path = vim/bundle/nvim-treesitter-textobjects
+	url = origin\thttps://github.com/nvim-treesitter/nvim-treesitter-textobjects.git
+[submodule "vim/bundle/tabline.nvim"]
+	path = vim/bundle/tabline.nvim
+	url = origin\thttps://github.com/kdheepak/tabline.nvim.git
+[submodule "vim/bundle/text-case.nvim"]
+	path = vim/bundle/text-case.nvim
+	url = origin\thttps://github.com/johmsalas/text-case.nvim.git

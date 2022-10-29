@@ -8,18 +8,20 @@
 require("textcase").setup {}
 
 local lspc = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 lspc.ccls.setup {
     init_options = {
         index = {
             threads = 1,
         },
+        compilationDatabaseDirectory = "build",
     }
 }
 lspc.pyright.setup {
     capabilities = capabilities
 }
 lspc.texlab.setup {}
+lspc.dhall_lsp_server.setup {}
 -- lspc.ltex.setup {
 --     default_config = {
 --         cmd = { "ltex-ls" },
@@ -318,8 +320,6 @@ vim.diagnostic.config({
     virtual_text = false,
 })
 
-require('mind').setup()
-
 local filename = {
     'filename',
     symbols = {
@@ -397,6 +397,7 @@ require('lualine').setup {
             {
                 'tabs',
                 mode = 2,
+                max_length = vim.o.columns,
                 tabs_color = { active = gruvbox.normal.z, inactive = gruvbox.normal.b },
             },
         },
