@@ -121,7 +121,7 @@ code {
   font-family: Iosevka Term;
 }
 
-code.inline {
+.markup-eYLPri code.inline {
   font-family: Iosevka Term;
 }
 

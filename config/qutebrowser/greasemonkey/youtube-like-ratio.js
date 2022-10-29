@@ -5,21 +5,31 @@
 // @author       crides
 // @match        *://*.youtube.com/*
 // ==/UserScript==
-function update_count(view_text, like_text) {
+function convert_number(_s) {
+    const s = _s.replaceAll(/,/g, "");
+    if (s.includes("K")) {
+        return (s.replace(/\s*K/, "") - 0) * 1000;
+    }
+    if (s.includes("M")) {
+        return (s.replace(/\s*M/, "") - 0) * 1000000;
+    }
+    if (s.includes("B")) {
+        return (s.replace(/\s*B/, "") - 0) * 1000000000;
+    }
+    return s - 0;
+}
+
+function update_count() {
     const appended_id = "yt-view-like-ratio-appended";
-    const views = view_text.textContent.replace(/ views$/, "").replaceAll(",", "") - 0;
-    const likes = like_text.attributes["aria-label"].value.replace(/ likes$/, "").replaceAll(",", "") - 0;
+    const views = convert_number(document.querySelector("#info.ytd-watch-metadata").children[0].textContent.replace(/\s*views.*/, ""));
+    const likes = convert_number(document.querySelector("#segmented-like-button span[role=\"text\"]").textContent);
     appended = document.querySelector("#" + appended_id);
     if (appended === null) {
-        like_par = like_text.parentNode;
+        const like_box = document.querySelector("#segmented-like-button div.cbox");
         appended = document.createElement("span");
         appended.id = appended_id;
         appended.style.paddingLeft = "0.5em";
-        if (like_par.childElementCount < 3) {
-            like_par.appendChild(appended);
-        } else {
-            like_par.insertBefore(appended, like_par.lastChild);
-        }
+        like_box.appendChild(appended);
     }
     appended.textContent = "/" + String.fromCharCode(160) + (views / likes).toFixed(2);
 }
@@ -28,17 +38,6 @@ observed = false;
 
 document.addEventListener('load', () => {
     if (!observed) {
-        const view_text = document.querySelector("ytd-video-view-count-renderer span");
-        const like_bar = document.querySelectorAll("yt-formatted-string#text.ytd-toggle-button-renderer");
-        if (view_text === null || like_bar.length === 0) {
-            return;
-        }
-        like_bar[like_bar.length - 1].hidden = true;
-        const observer = new MutationObserver(list => {
-            update_count(view_text, like_bar[like_bar.length - 2]);
-        });
-        observer.observe(like_bar[like_bar.length - 2], {attributeFilter: ["aria-label"]});
-        update_count(view_text, like_bar[like_bar.length - 2]);
-        observed = true;
+        update_count();
     }
 }, true);
