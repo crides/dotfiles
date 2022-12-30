@@ -94,6 +94,10 @@ export MPC = mpc.Mpc(nil, nil, nil, error_handler,
         update_widget!),
     "currentsong", (_, result) ->
         { :title, :artist, :file, :album, :duration } = result
+        title = string.gsub(title, "&", "&amp;")
+        artist = string.gsub(artist, "&", "&amp;")
+        album = string.gsub(album, "&", "&amp;")
+        file = string.gsub(file, "&", "&amp;")
         duration = duration or 1
         update_widget!)
 
