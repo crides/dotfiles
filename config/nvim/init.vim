@@ -43,6 +43,8 @@ augroup CoqtailHighlights
     \| hi def CoqtailChecked guibg=#003000
 augroup END
 
+Plug 'nvim-neorg/neorg'
+
 " === Completion ===
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -67,7 +69,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'wookayin/semshi', {'do': ':UpdateRemotePlugins'}
 
 " === Moving arround & Editing ===
 Plug 'easymotion/vim-easymotion'
