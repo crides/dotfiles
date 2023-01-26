@@ -58,6 +58,10 @@ setopt HIST_IGNORE_DUPS         # Don't record an entry that was just recorded a
 setopt HIST_IGNORE_ALL_DUPS     # Delete old recorded entry if new entry is a duplicate.
 setopt HIST_REDUCE_BLANKS
 bindkey -v
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^W' backward-kill-word
+
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
@@ -115,7 +119,7 @@ alias hx='helix'
 alias v='neovide --multigrid'
 #alias dog='highlight -O ansi --force'
 # dog() { bat --color=always $@ | less }
-alias dog='bat --color=always --pager=never --theme ansi-dark'
+# alias dog='bat --color=always --pager=never --theme ansi-dark'
 alias lynx='lynx -use_mouse'
 alias uniq='awk "!v[\$0]++"'
 alias py='python3'
@@ -272,21 +276,36 @@ export CORRAL_DIR="$HOME/.dotnet/tools"
 # PaulJuliusMartinez/jless
 alias lj=jless
 
-ds() {
-    # datasheet
+# ds() {
+#     # datasheet
+#     if [ $# -ne 1 ]; then
+#         echo 'usage: ds <part name>'
+#         return 1
+#     fi
+#     pdf=$(fd $1 -ie pdf "$HOME/Downloads/datasheet")
+#     if [ -e "$pdf" ]; then
+#         zathura "$pdf"
+#     else
+#         if [ $(echo "$pdf" | wc -l) -gt 1 ]; then
+#             echo 'Too many results:'
+#             fd $1 -ie pdf "$HOME/Downloads/datasheet" -x echo {/.}
+#             return 2
+#         fi
+#         return 1
+#     fi
+# }
+
+alias tg="tree-grepper"
+alias xd="xh -d"
+0x0() {
     if [ $# -ne 1 ]; then
-        echo 'usage: ds <part name>'
+        echo 'usage: 0x0 <file>'
         return 1
     fi
-    pdf=$(fd $1 -ie pdf "$HOME/Downloads/datasheet")
-    if [ -e "$pdf" ]; then
-        zathura "$pdf"
+    if [ -f "$1" ]; then
+        xh -b https://0x0.st --form "file@$1"
     else
-        if [ $(echo "$pdf" | wc -l) -gt 1 ]; then
-            echo 'Too many results:'
-            fd $1 -ie pdf "$HOME/Downloads/datasheet" -x echo {/.}
-            return 2
-        fi
+        echo "$1 is not a file"
         return 1
     fi
 }
