@@ -406,3 +406,21 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {}
 }
+local vobj = require("various-textobjs")
+vobj.setup {
+    lookForwardLines = 20,
+    useDefaultKeymaps = true,
+}
+vim.keymap.set({"o", "x"}, "ii", function() vobj.indentation(true, true) end)
+vim.keymap.set({"o", "x"}, "ai", function() vobj.indentation(false, true) end)
+vim.keymap.set("n", "gx", function ()
+	vobj.url() -- select URL
+	local foundURL = vim.fn.mode():find("v") -- only switches to visual mode if found
+	if foundURL then
+		vim.cmd.normal { '"zy', bang = true } -- retrieve URL with "z as intermediary
+		local url = vim.fn.getreg("z")
+		os.execute("xdg-open '" .. url .. "'")
+    else
+        vim.cmd.UrlView("buffer")
+	end
+end, {desc = "Smart URL Opener"})

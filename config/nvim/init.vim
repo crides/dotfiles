@@ -98,7 +98,6 @@ autocmd Filetype rust let b:sandwich_magicchar_f_patterns = [
 Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = 250
 highlight HighlightedyankRegion gui=reverse cterm=reverse
@@ -118,6 +117,8 @@ nmap ge          <Plug>WordMotion_e
 nmap gh          <Plug>WordMotion_ge
 omap agw         <Plug>WordMotion_aw
 omap igw         <Plug>WordMotion_iw
+
+Plug 'chrisgrieser/nvim-various-textobjs'
 
 " === UI ===
 Plug 'junegunn/goyo.vim'
@@ -175,6 +176,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'folke/todo-comments.nvim'
+Plug 'axieax/urlview.nvim'
 
 " === Colorscheme ===
 Plug 'glepnir/oceanic-material'
