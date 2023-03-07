@@ -43,7 +43,10 @@ augroup CoqtailHighlights
     \| hi def CoqtailChecked guibg=#003000
 augroup END
 
+Plug '~/gitproj/noulith/vim'
 Plug 'nvim-neorg/neorg'
+Plug 'terrastruct/d2-vim'
+Plug 'folke/neodev.nvim'
 
 " === Completion ===
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
