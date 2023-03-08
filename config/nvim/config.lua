@@ -312,6 +312,20 @@ require('nvim-treesitter.configs').setup {
                 ["ic"] = "@class.inner",
             },
         },
+        move = {
+            enable = true,
+            set_jumps = true,
+            goto_next = {
+                ["]a"] = "@conditional.outer",
+                ["]f"] = "@function.outer",
+                ["]c"] = "@class.outer",
+            },
+            goto_previous = {
+                ["[a"] = "@conditional.outer",
+                ["[f"] = "@function.outer",
+                ["[c"] = "@class.outer",
+            }
+        },
     },
 }
 require('nu').setup {}
@@ -424,3 +438,17 @@ vim.keymap.set("n", "gx", function ()
         vim.cmd.UrlView("buffer")
 	end
 end, {desc = "Smart URL Opener"})
+
+local telescope = require("telescope")
+local actions = require("telescope.actions")
+telescope.setup {
+    defaults = {
+        mappings = {
+            i = {
+                ["<C-u>"] = { "<c-s-u>", type = "command" },
+                ["<C-b>"] = actions.preview_scrolling_up,
+                ["<C-f>"] = actions.preview_scrolling_down,
+            },
+        },
+    },
+}
