@@ -84,6 +84,8 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+KEYTIMEOUT=1
+
 # enable color support of ls and also add handy aliases
 # if [ -x /usr/bin/dircolors ]; then
 #     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -144,7 +146,7 @@ alias gt='git tree'
 alias gsa='git submodule add'
 alias zathura='zathura --fork'
 alias pacman='pacman --color always'
-alias yay='yay --color always'
+alias paru='paru --color always'
 alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
