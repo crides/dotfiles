@@ -45,10 +45,10 @@ keys = gears.table.join(
         { modkey, "Shift"   }, "l", -> awful.client.swap.byidx(  1),
         {description: "swap with next client by index", group: "client"}),
     awful.key(
-        { modkey,           }, "j", -> awful.screen.focus_relative(-1),
+        { modkey,           }, "j", -> awful.screen.focus_relative(1),
         {description: "focus the next screen", group: "screen"}),
     awful.key(
-        { modkey,           }, "k", -> awful.screen.focus_relative( 1),
+        { modkey,           }, "k", -> awful.screen.focus_relative(-1),
         {description: "focus the previous screen", group: "screen"}),
     awful.key(
         { modkey,           }, "u", awful.client.urgent.jumpto,
@@ -136,10 +136,10 @@ clientkeys = gears.table.join(
         { modkey, "Control" }, "Return", => @swap(awful.client.getmaster!),
         {description: "move to master", group: "client"}),
     awful.key(
-        { modkey, "Shift"   }, "j", => @move_to_screen(@screen.index - 1),
+        { modkey, "Shift"   }, "j", => @move_to_screen(@screen.index + 1),
         {description: "move client to previous screen", group: "screen"}),
     awful.key(
-        { modkey, "Shift"   }, "k", => @move_to_screen(@screen.index + 1),
+        { modkey, "Shift"   }, "k", => @move_to_screen(@screen.index - 1),
         {description: "move client to next screen", group: "screen"}),
     awful.key(
         { modkey,           }, "t", => @ontop = not @ontop,
@@ -209,8 +209,8 @@ tasklist_buttons = gears.table.join(
     awful.button({ }, 3, => @minimized = not @minimized),
     awful.button({ }, 4, -> awful.client.focus.byidx -1),
     awful.button({ }, 5, -> awful.client.focus.byidx 1),
-    awful.button({ }, 8, -> awful.client.swap.byidx -1),
-    awful.button({ }, 9, -> awful.client.swap.byidx 1))
+    awful.button({ }, 8, -> awful.client.swap.byidx 1),
+    awful.button({ }, 9, -> awful.client.swap.byidx -1))
 
 -- buttons for the titlebar
 window_title_buttons = (c) -> gears.table.join(
@@ -223,7 +223,11 @@ window_title_buttons = (c) -> gears.table.join(
         c\emit_signal("request::activate", "titlebar", {raise: true})
         awful.mouse.client.resize(c)
     ),
-    awful.button({ }, 8, -> c\move_to_screen(c.screen.index - 1)),
+    awful.button({ }, 4, -> awful.client.focus.byidx -1),
+    awful.button({ }, 5, -> awful.client.focus.byidx 1),
+    awful.button({ }, 6, -> awful.screen.focus_relative -1),
+    awful.button({ }, 7, -> awful.screen.focus_relative 1),
+    awful.button({ }, 8, -> c\move_to_screen(c.screen.index + 1)),
     awful.button({ }, 9, -> c\move_to_screen(c.screen.index - 1)))
 
 clientbuttons = gears.table.join(
@@ -237,7 +241,9 @@ clientbuttons = gears.table.join(
         awful.mouse.client.move(@)),
     awful.button({ modkey }, 3, =>
         @emit_signal("request::activate", "mouse_click", {raise: true})
-        awful.mouse.client.resize(@)))
+        awful.mouse.client.resize(@)),
+    awful.button({ modkey }, 6, => awful.screen.focus_relative -1),
+    awful.button({ modkey }, 7, => awful.screen.focus_relative 1))
 
 layout_buttons = gears.table.join(
     awful.button({ }, 1, -> awful.layout.inc  1),
