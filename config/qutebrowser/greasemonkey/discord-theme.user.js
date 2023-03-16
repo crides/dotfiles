@@ -129,6 +129,14 @@ code, .menu-3sdvDG {
   background-color: var(--gruvbox-bg);
 }
 
+.theme-dark .scroller-3X7KbA {
+    background-color: var(--gruvbox-bg-h);
+}
+
+.scroller-kQBbkU {
+    background-color: var(--gruvbox-bg-h);
+}
+
 /* .content-3YMskv, .peopleList-3c4jOR, .tree-2wKJdG, .chat-3bRxxu, .scroller-1Bvpku, .scrollerBase-289Jih, .content-1o0f9g { */
 /*   background-color: var(--gruvbox-bg-h); */
 /* } */
@@ -159,47 +167,51 @@ This CSS makes code blocks within Discord match gruvbox.
 hightlight.js is copyright 2006 Ivan Sagalaev and licensed under the BSD 3-clause license,
 as specified here: https://github.com/highlightjs/highlight.js/blob/master/LICENSE            */
 
-.hljs-deletion, .hljs-formula, .hljs-keyword, .hljs-link, .hljs-selector-tag {
-  color: var(--gruvbox-light-red);
+.theme-dark .hljs-deletion, .theme-dark .hljs-formula, .theme-dark .hljs-keyword, .theme-dark .hljs-link, .theme-dark .hljs-selector-tag {
+  color: var(--gruvbox-red);
 }
 
-.hljs-built_in, .hljs-emphasis, .hljs-name, .hljs-quote, .hljs-strong, .hljs-title, .hljs-variable {
-  color: var(--gruvbox-light-blue);
-}
-
-.hljs-attr, .hljs-params, .hljs-template-tag, .hljs-type {
-  color: var(--gruvbox-light-yellow);
-}
-
-.hljs-builtin-name, .hljs-doctag, .hljs-literal, .hljs-number {
+.theme-dark .hljs-builtin-name, .theme-dark .hljs-built_in {
   color: var(--gruvbox-light-purple);
 }
 
-.hljs-code, .hljs-meta, .hljs-regexp, .hljs-selector-id, .hljs-template-variable {
-  color: var(--gruvbox-light-orange);
+.theme-dark .hljs-emphasis, .theme-dark .hljs-name, .theme-dark .hljs-quote, .theme-dark .hljs-strong, .theme-dark .hljs-title, .theme-dark .hljs-variable, .theme-dark .hljs-title.class_, .theme-dark .hljs-title.class_.inherited__, .theme-dark .hljs-title.function_ {
+  color: var(--gruvbox-blue);
 }
 
-.hljs-addition, .hljs-meta-string, .hljs-section, .hljs-selector-attr, .hljs-selector-class, .hljs-string, .hljs-symbol {
-  color: var(--gruvbox-light-green);
+.theme-dark .hljs-attr, .theme-dark .hljs-params, .theme-dark .hljs-template-tag, .theme-dark .hljs-type {
+  color: var(--gruvbox-yellow);
 }
 
-.hljs-attribute, .hljs-bullet, .hljs-class, .hljs-function, .hljs-function .hljs-keyword, .hljs-meta-keyword, .hljs-selector-pseudo, .hljs-tag {
-  color: var(--gruvbox-light-aqua);
+ .theme-dark .hljs-doctag, .theme-dark .hljs-literal, .theme-dark .hljs-number {
+  color: var(--gruvbox-light-purple);
 }
 
-.hljs-comment {
+.theme-dark .hljs-code, .theme-dark .hljs-meta, .theme-dark .hljs-regexp, .theme-dark .hljs-selector-id, .theme-dark .hljs-template-variable {
+  color: var(--gruvbox-orange);
+}
+
+.theme-dark .hljs-addition, .theme-dark .hljs-meta-string, .theme-dark .hljs-section, .theme-dark .hljs-selector-attr, .theme-dark .hljs-selector-class, .theme-dark .hljs-string, .theme-dark .hljs-symbol {
+  color: var(--gruvbox-green);
+}
+
+.theme-dark .hljs-attribute, .theme-dark .hljs-bullet, .theme-dark .hljs-class, .theme-dark .hljs-function, .theme-dark .hljs-function .theme-dark .hljs-keyword, .theme-dark .hljs-meta-keyword, .theme-dark .hljs-selector-pseudo, .theme-dark .hljs-tag {
+  color: var(--gruvbox-aqua);
+}
+
+.theme-dark .hljs-comment {
   color: var(--gruvbox-gray);
 }
 
-.hljs-link_label, .hljs-literal, .hljs-number {
+.theme-dark .hljs-link_label {
   color: var(--gruvbox-light-purple);
 }
 
-.hljs-comment, .hljs-emphasis {
+.theme-dark .hljs-comment, .theme-dark .hljs-emphasis {
   font-style: italic;
 }
 
-.hljs-section, .hljs-strong, .hljs-tag {
+.theme-dark .hljs-section, .theme-dark .hljs-strong, .theme-dark .hljs-tag {
   font-weight: bold;
 }
 `;
