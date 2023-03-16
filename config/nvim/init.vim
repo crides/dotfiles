@@ -121,7 +121,9 @@ nmap gh          <Plug>WordMotion_ge
 omap agw         <Plug>WordMotion_aw
 omap igw         <Plug>WordMotion_iw
 
+Plug 'vigoux/architext.nvim'
 Plug 'chrisgrieser/nvim-various-textobjs'
+Plug 'mbbill/undotree'
 
 " === UI ===
 Plug 'junegunn/goyo.vim'
@@ -154,51 +156,25 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-Plug 'camspiers/animate.vim'
+" Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
-let g:lens#animate = 1
+let g:lens#animate = 0
 
 Plug 'Yggdroot/indentLine'
 let g:indentLine_setConceal = 0
 
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/nerdtree'
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "*",
-    \ "Staged"    : "+",
-    \ "Untracked" : "?",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "=",
-    \ "Deleted"   : "x",
-    \ "Dirty"     : "U",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "??"
-    \ }
-
 Plug 'nvim-lua/plenary.nvim'
 Plug 'folke/todo-comments.nvim'
+Plug 'nvim-tree/nvim-tree.lua'
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 Plug 'axieax/urlview.nvim'
 
 " === Colorscheme ===
-Plug 'glepnir/oceanic-material'
-Plug 'jsit/toast.vim'
-Plug 'flrnprz/plastic.vim'
-Plug '~/.vim/bundle/helios.vim'
-Plug 'projekt0n/github-nvim-theme'
-
-Plug 'ayu-theme/ayu-vim'
-let ayucolor = 'dark'
-
-Plug 'humanoid-colors/vim-humanoid-colorscheme'
-
 Plug 'morhetz/gruvbox'
 let g:gruvbox_contrast_dark = "hard"
-
-Plug 'arcticicestudio/nord-vim'
-let g:nord_italic_comments = 1
-let g:nord_italic = 1
 
 " === Other stuff ===
 Plug 'godlygeek/tabular'
@@ -214,8 +190,6 @@ let g:gitgutter_map_keys = 0
 Plug 'airblade/vim-rooter'
 let g:rooter_manual_only = 1
 
-Plug 'joshdick/onedark.vim'
-let g:onedark_termcolors = 16
 highlight GitGutterAdd    ctermfg=2
 highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
@@ -354,12 +328,12 @@ au FileType dts set iskeyword+=-
 au BufRead,BufNewFile *.mlir setfiletype mlir
 au BufRead,BufNewFile *.ll setfiletype llvm
 
-hi link TSPunctDelimiter Normal
-hi link TSPunctBracket Normal
-hi link pythonTSKeywordOperator Conditional
+hi link @punctuation.delimiter Normal
+hi link @punctuation.bracket Normal
 hi! link DiagnosticError GruvboxRed
 hi! link semshiErrorChar GruvboxRed
 hi! link semshiErrorSign GruvboxRed
+hi Identifier guifg=fg
 
 exe "luafile " . split(&rtp, ",")[0] . "/config.lua"
 

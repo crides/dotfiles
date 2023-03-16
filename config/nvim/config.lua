@@ -429,6 +429,7 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {}
 }
+require("nvim-tree").setup()
 local vobj = require("various-textobjs")
 vobj.setup {
     lookForwardLines = 20,

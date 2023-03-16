@@ -10,15 +10,6 @@
 [submodule ".vim/bundle/animate.vim"]
 	path = vim/bundle/animate.vim
 	url = https://github.com/camspiers/animate.vim.git
-[submodule ".vim/bundle/ayu-vim"]
-	path = vim/bundle/ayu-vim
-	url = https://github.com/ayu-theme/ayu-vim.git
-[submodule ".vim/bundle/coc.nvim"]
-	path = vim/bundle/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
-[submodule ".vim/bundle/deoplete.nvim"]
-	path = vim/bundle/deoplete.nvim
-	url = https://github.com/Shougo/deoplete.nvim.git
 [submodule ".vim/bundle/fzf"]
 	path = vim/bundle/fzf
 	url = https://github.com/junegunn/fzf.git
@@ -52,15 +43,6 @@
 [submodule ".vim/bundle/nerdtree-git-plugin"]
 	path = vim/bundle/nerdtree-git-plugin
 	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
-[submodule ".vim/bundle/nord-vim"]
-	path = vim/bundle/nord-vim
-	url = https://github.com/arcticicestudio/nord-vim.git
-[submodule ".vim/bundle/onedark.vim"]
-	path = vim/bundle/onedark.vim
-	url = https://github.com/joshdick/onedark.vim.git
-[submodule ".vim/bundle/plastic.vim"]
-	path = vim/bundle/plastic.vim
-	url = https://github.com/flrnprz/plastic.vim.git
 [submodule ".vim/bundle/powerline"]
 	path = vim/bundle/powerline
 	url = https://github.com/powerline/powerline.git
@@ -193,21 +175,12 @@
 [submodule "vim/bundle/bubbly.nvim"]
 	path = vim/bundle/bubbly.nvim
 	url = https://github.com/datwaft/bubbly.nvim
-[submodule "vim/bundle/zephyr-nvim"]
-	path = vim/bundle/zephyr-nvim
-	url = https://github.com/glepnir/zephyr-nvim
 [submodule "vim/bundle/splitjoin.vim"]
 	path = vim/bundle/splitjoin.vim
 	url = https://github.com/AndrewRadev/splitjoin.vim
-[submodule "vim/bundle/vim-humanoid-colorscheme"]
-	path = vim/bundle/vim-humanoid-colorscheme
-	url = https://github.com/humanoid-colors/vim-humanoid-colorscheme
 [submodule "vim/bundle/vim-openscad"]
 	path = vim/bundle/vim-openscad
 	url = https://github.com/sirtaj/vim-openscad
-[submodule "vim/bundle/toast.vim"]
-	path = vim/bundle/toast.vim
-	url = https://github.com/jsit/toast.vim
 [submodule "vim/bundle/Colorizer"]
     path = vim/bundle/Colorizer
     url = https://github.com/chrisbra/Colorizer
@@ -226,9 +199,6 @@
 [submodule "vim/bundle/nvim-lspconfig"]
 	path = vim/bundle/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
-[submodule "vim/bundle/oceanic-material"]
-	path = vim/bundle/oceanic-material
-	url = https://github.com/glepnir/oceanic-material
 [submodule "vim/bundle/plenary.nvim"]
 	path = vim/bundle/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim
@@ -268,9 +238,6 @@
 [submodule "vim/bundle/nvim-web-devicons"]
 	path = vim/bundle/nvim-web-devicons
 	url = https://github.com/kyazdani42/nvim-web-devicons
-[submodule "vim/bundle/github-nvim-theme"]
-	path = vim/bundle/github-nvim-theme
-	url = https://github.com/projekt0n/github-nvim-theme.git
 [submodule "vim/bundle/playground"]
 	path = vim/bundle/playground
 	url = https://github.com/nvim-treesitter/playground
