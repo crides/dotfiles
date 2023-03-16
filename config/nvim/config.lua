@@ -7,15 +7,19 @@
 -- )
 require("textcase").setup {}
 
+require("neodev").setup {}
 local lspc = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 lspc.ccls.setup {
     init_options = {
         index = {
-            threads = 1,
+            threads = 4,
         },
-        compilationDatabaseDirectory = "build",
-    }
+        -- compilationDatabaseDirectory = "build/",
+    },
+    filetypes = { "c", "cpp", "arduino" },
+    -- cmd = { "ccls", "-log-file=/tmp/ccls.log", "-v=1"},
+    capabilities = capabilities,
 }
 lspc.pyright.setup {
     capabilities = capabilities
@@ -111,7 +115,8 @@ require('rust-tools').setup {
                     importPrefix = "by_self",
                 },
                 cargo = {
-                    loadOutDirsFromCheck = true
+                    loadOutDirsFromCheck = true,
+                    features = "all",
                 },
                 procMacro = {
                     enable = true
@@ -253,7 +258,7 @@ cmp.setup.cmdline(':', {
 
 require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "vim", "python", "cpp", "bash", "query" },
+    ensure_installed = { "c", "lua", "rust", "vim", "python", "cpp", "bash", "query", "norg", "norg_meta" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -273,6 +278,10 @@ require('nvim-treesitter.configs').setup {
         -- Using this option may slow down your editor, and you may see some duplicate highlights.
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = true,
+        disable = { "python", "yaml" },
     },
     playground = {
         enable = true,
@@ -344,12 +353,12 @@ local filename = {
     }
 }
 
-gruvbox = require("lualine.themes.gruvbox")
+local gruvbox = require("lualine.themes.gruvbox")
 for _, mode in ipairs({"insert", "visual", "command", "replace"}) do
     gruvbox[mode].b = gruvbox.normal.b
     gruvbox[mode].c = gruvbox.normal.c
 end
-z_style = { fg = gruvbox.normal.a.fg, bg = gruvbox.normal.a.bg }
+local z_style = { fg = gruvbox.normal.a.fg, bg = gruvbox.normal.a.bg }
 for _, mode in ipairs({"normal", "insert", "visual", "command", "replace", "inactive"}) do
     gruvbox[mode].z = z_style
 end
