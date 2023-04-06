@@ -462,3 +462,28 @@ telescope.setup {
         },
     },
 }
+
+require('gitsigns').setup{
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', '<leader>[', gs.prev_hunk)
+    map('n', '<leader>]', gs.next_hunk)
+    map({'n', 'v'}, '<leader>hs', gs.stage_hunk)
+    map({'n', 'v'}, '<leader>hu', gs.reset_hunk)
+    map('n', '<leader>hU', gs.undo_stage_hunk)
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', gs.select_hunk)
+    map({'o', 'x'}, 'ah', gs.select_hunk)
+  end
+}

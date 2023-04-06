@@ -184,8 +184,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rbong/vim-flog'
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_map_keys = 0
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'airblade/vim-rooter'
 let g:rooter_manual_only = 1
@@ -268,16 +267,7 @@ nnoremap <silent> <leader>W  <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>o  <cmd>lua vim.diagnostic.open_float()<CR>
-nnoremap <silent> <leader>[ <Plug>(GitGutterPrevHunk)
-nnoremap <silent> <leader>] <Plug>(GitGutterNextHunk)
 nnoremap <silent> <leader>e <cmd>Telescope git_files<CR>
-onoremap ih <Plug>(GitGutterTextObjectInnerPending)
-onoremap ah <Plug>(GitGutterTextObjectOuterPending)
-xnoremap ih <Plug>(GitGutterTextObjectInnerVisual)
-xnoremap ah <Plug>(GitGutterTextObjectOuterVisual)
-nnoremap <leader>hp <Plug>(GitGutterPreviewHunk)
-nnoremap <leader>hs <Plug>(GitGutterStageHunk)
-nnoremap <leader>hu <Plug>(GitGutterUndoHunk)
 for i in range(1, 9)
     exe "noremap <leader>" . i . " " . i . "gt"
 endfor
