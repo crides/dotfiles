@@ -429,7 +429,13 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = {}
 }
+
+local lsp_util = require 'lspconfig.util'
 require("nvim-tree").setup()
+local nvim_tree = require("nvim-tree.api")
+vim.keymap.set("n", "<leader>tg", function() nvim_tree.tree.open(lsp_util.root_pattern(".git")(vim.fn.expand("%:p"))) end)
+vim.keymap.set("n", "<leader>tt", nvim_tree.tree.toggle)
+
 local vobj = require("various-textobjs")
 vobj.setup {
     lookForwardLines = 20,
@@ -448,6 +454,7 @@ vim.keymap.set("n", "gx", function ()
         vim.cmd.UrlView("buffer")
 	end
 end, {desc = "Smart URL Opener"})
+vim.keymap.set("n", "gX", function() vim.cmd.UrlView("vimplug") end)
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
@@ -462,6 +469,7 @@ telescope.setup {
         },
     },
 }
+require("urlview").setup()
 
 require('gitsigns').setup{
   on_attach = function(bufnr)

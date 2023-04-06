@@ -44,7 +44,6 @@ augroup CoqtailHighlights
 augroup END
 
 Plug '~/gitproj/noulith/vim'
-Plug 'nvim-neorg/neorg'
 Plug 'terrastruct/d2-vim'
 Plug 'folke/neodev.nvim'
 
@@ -257,7 +256,7 @@ nnoremap <expr> , ';,'[getcharsearch().forward]
 " au CursorHold * lua vim.diagnostic.show_line_diagnostics()
 nnoremap <silent> <leader>( <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <silent> <leader>) <cmd>lua vim.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>g <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>K  <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <leader>i  <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <leader>k  <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -268,6 +267,7 @@ nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader>o  <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> <leader>e <cmd>Telescope git_files<CR>
+nnoremap <silent> <leader>f <cmd>Telescope find_files<CR>
 for i in range(1, 9)
     exe "noremap <leader>" . i . " " . i . "gt"
 endfor
