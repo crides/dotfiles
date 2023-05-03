@@ -72,6 +72,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'wookayin/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'zbirenbaum/copilot.lua'
+Plug 'zbirenbaum/copilot-cmp'
 
 " === Moving arround & Editing ===
 Plug 'easymotion/vim-easymotion'

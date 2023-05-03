@@ -226,6 +226,7 @@ cmp.setup({
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = "copilot" },
         { name = 'vsnip' }, -- For vsnip users.
         { name = 'buffer' },
     })
@@ -495,3 +496,5 @@ require('gitsigns').setup{
     map({'o', 'x'}, 'ah', gs.select_hunk)
   end
 }
+require("copilot").setup {}
+require("copilot_cmp").setup()
