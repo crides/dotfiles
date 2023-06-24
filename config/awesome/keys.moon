@@ -6,12 +6,10 @@ require "util"
 modkey = "Mod4"
 xrandr = require "xrandr"
 
-term = "alacritty"
--- new_term = full_path "new_term.sh"
-new_term = "alacritty"
-editor = os.getenv("EDITOR") or "nvim"
 HOME = os.getenv("HOME")
-editor_cmd = term .. " -e " .. editor
+new_term = "env WINIT_X11_SCALE_FACTOR=1 wezterm"
+editor = os.getenv("EDITOR") or "nvim"
+editor_cmd = new_term .. " -e " .. editor
 browser = HOME .. "/gitproj/qutebrowser/qutebrowser.py"
 
 lockscreen = -> awful.util.spawn(HOME .. "/.local/bin/lock manual")
