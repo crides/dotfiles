@@ -6,7 +6,7 @@ colors = xresources.get_current_theme!
 gfs = require "gears.filesystem"
 themes_path = gfs.get_themes_dir!
 taglist_square_size = dpi 4
-font = "Iosevka Term"
+font = "I0sevka Term"
 HOME = os.getenv("HOME")
 
 with {}

@@ -36,3 +36,5 @@
 	external = difft
 [init]
 	defaultBranch = main
+[advice]
+    detachedHead = false

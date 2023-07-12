@@ -4,9 +4,6 @@
 [submodule "config/awesome/lain"]
 	path = config/awesome/lain
 	url = https://github.com/lcpz/lain/
-[submodule ".vim/bundle/ale"]
-	path = vim/bundle/ale
-	url = https://github.com/w0rp/ale.git
 [submodule ".vim/bundle/animate.vim"]
 	path = vim/bundle/animate.vim
 	url = https://github.com/camspiers/animate.vim.git

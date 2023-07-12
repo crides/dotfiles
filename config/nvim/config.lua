@@ -21,11 +21,17 @@ lspc.ccls.setup {
     -- cmd = { "ccls", "-log-file=/tmp/ccls.log", "-v=1"},
     capabilities = capabilities,
 }
-lspc.pyright.setup {
-    capabilities = capabilities
+lspc.pyright.setup { capabilities = capabilities }
+lspc.texlab.setup { capabilities = capabilities }
+lspc.lua_ls.setup { capabilities = capabilities }
+lspc.dhall_lsp_server.setup { capabilities = capabilities }
+lspc.typst.setup { capabilities = capabilities }
+lspc.vimls.setup {
+    init_options = {
+        isNeovim = true,
+    },
+    capabilities = capabilities,
 }
-lspc.texlab.setup {}
-lspc.dhall_lsp_server.setup {}
 -- lspc.ltex.setup {
 --     default_config = {
 --         cmd = { "ltex-ls" },
@@ -259,7 +265,7 @@ cmp.setup.cmdline(':', {
 
 require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "vim", "python", "cpp", "bash", "query", "norg", "norg_meta" },
+    ensure_installed = { "c", "lua", "rust", "vim", "python", "cpp", "bash", "query", "markdown" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -344,92 +350,8 @@ vim.diagnostic.config({
     virtual_text = false,
 })
 
-local filename = {
-    'filename',
-    symbols = {
-        modified = '+',
-        readonly = '[RO]',
-        unnamed = '[No Name]',
-        newfile = '[New]',
-    }
-}
-
-local gruvbox = require("lualine.themes.gruvbox")
-for _, mode in ipairs({"insert", "visual", "command", "replace"}) do
-    gruvbox[mode].b = gruvbox.normal.b
-    gruvbox[mode].c = gruvbox.normal.c
-end
-local z_style = { fg = gruvbox.normal.a.fg, bg = gruvbox.normal.a.bg }
-for _, mode in ipairs({"normal", "insert", "visual", "command", "replace", "inactive"}) do
-    gruvbox[mode].z = z_style
-end
-require('lualine').setup {
-    options = {
-        theme = gruvbox,
-        icons_enabled = true,
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
-        disabled_filetypes = {
-            statusline = {},
-            winbar = {},
-        },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-        }
-    },
-    sections = {
-        lualine_a = {'mode'},
-        lualine_b = {filename},
-        lualine_c = {
-            {
-                'branch',
-                icons_enabled = false,
-            },
-            'diff',
-            {
-                'diagnostics',
-                sections = { 'error', 'warn' },
-            },
-        },
-        lualine_x = {
-            'encoding',
-            {
-                'fileformat',
-                symbols = {
-                    unix = ' ', -- e712
-                    dos = ' ',  -- e70f
-                    mac = ' ',  -- e711
-                },
-            },
-            'filetype',
-        },
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
-    },
-    inactive_sections = {
-        lualine_c = {filename},
-        lualine_x = {'progress'},
-        lualine_y = {'location'},
-    },
-    tabline = {
-        lualine_c = {
-            {
-                'tabs',
-                mode = 2,
-                max_length = vim.o.columns,
-                tabs_color = { active = gruvbox.normal.z, inactive = gruvbox.normal.b },
-            },
-        },
-    },
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-}
+require('lualine').setup(require("lualine-config"))
+-- require("heirline").setup(require("heirline-config"))
 
 local lsp_util = require 'lspconfig.util'
 require("nvim-tree").setup()
@@ -470,6 +392,7 @@ telescope.setup {
         },
     },
 }
+
 require("urlview").setup()
 
 require('gitsigns').setup{

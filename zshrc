@@ -1,3 +1,5 @@
+# # Fig pre block. Keep at the top of this file.
+# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_DISABLE_COMPFIX=true
@@ -45,7 +47,7 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github httpie colored-man-pages command-not-found zsh-syntax-highlighting rust)
+plugins=(git github httpie colored-man-pages command-not-found zsh-syntax-highlighting rust completions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -156,7 +158,7 @@ mc() {
     mkdir -p $1 && cd $1
 }
 
-export PATH="$HOME/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$PATH"
+export PATH="$HOME/.nix-profile/bin:/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
 export BROWSER="$HOME/gitproj/qutebrowser/qutebrowser.py"
@@ -167,7 +169,8 @@ export VISUAL=nvim
 export QMK_HOME=$HOME/gitproj/qmk_firmware
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/.fzf/completion.zsh
+source ~/.fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND='fd -HI -tf' #'rg --hidden -l ""'
 export FZF_CTRL_T_COMMAND='fd -HI -tf' 
 
@@ -238,7 +241,7 @@ export GNUARMEMB_TOOLCHAIN_PATH=/usr
 # sharkdp/bat
 export BAT_CONFIG_PATH=$HOME/.config/bat.conf
 
-source /home/steven/.config/broot/launcher/bash/br
+# source /home/steven/.config/broot/launcher/bash/br
 
 # Batman!
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -297,7 +300,6 @@ alias lj=jless
 #     fi
 # }
 
-alias tg="tree-grepper"
 alias xd="xh -d"
 0x0() {
     if [ $# -ne 1 ]; then
@@ -311,3 +313,4 @@ alias xd="xh -d"
         return 1
     fi
 }
+export MAUDE_LIB=~/.local/share/maude

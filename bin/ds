@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
-alias unlines = str collect (char nl)
-def main [name: string] {
+alias unlines = str join (char nl)
+def main [name] {
     let results = (fd $name -ie pdf $"($env.HOME)/Downloads/datasheet" | lines)
     let len = ($results | length)
     if $len == 0 {

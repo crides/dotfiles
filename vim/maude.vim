@@ -13,11 +13,13 @@ endif
 
 command! -nargs=+ MaudeHiLink hi def link <args>
 
+set isk+=-,',$
+
 syn keyword maudeModule     mod fmod omod endm endfm endm is
 syn keyword maudeImports    protecting including extending
-syn keyword maudeSorts      sorts subsorts
-syn keyword maudeStatements op ops var vars eq ceq rl crl
-syn match   maudeFlags      "\[.\{-}\]"
+syn keyword maudeSorts      sorts subsorts sort subsort
+syn keyword maudeStatements op ops var vars eq ceq rl crl if then else fi mb cmb
+syn match   maudeFlags      /\%(\%(->\|=\)\s*\)\@<!\[[^]]*\]\ze\s*\.$/
 syn keyword maudeCommands   reduce red rewrite rew search
 syn match   maudeComment    "\*\*\*.*"
 syn match   maudeComment    "---.*"
@@ -26,11 +28,12 @@ syn match   maudeOps        ":"
 "syn match   maudeOps        "^\s*subsorts[^<]*<"hs=e-1
 "syn match   maudeOps        "^\s*ceq[^=]*="
 syn match   maudeOps        "="
+syn match   maudeOps        "=/="
 syn match   maudeOps        "=>"
 syn match   maudeOps        "\.\s*$"
 
 syn keyword maudeModules    INT FLOAT NAT RAT BOOL QID TRUTH IDENTICAL STRING
-syn keyword maudeModules    CONVERSION
+syn keyword maudeModules    CONVERSION CONFIGURATION
 syn match   maudeModules    "TRUTH-VALUE"
 syn match   maudeModules    "EXT-BOOL"
 syn match   maudeModules    "QID-LIST"
@@ -38,10 +41,10 @@ syn match   maudeModules    "META-MODULE"
 syn match   maudeModules    "META-TERM"
 syn match   maudeModules    "META-LEVEL"
 syn match   maudeModules    "LOOP-MODE"
-syn match   maudeModules    "CONFIGURATION"
+syn match   maudeModules    "MACHINE-INT"
 
 syn keyword maudeSorts      Bool Int Float Nat Qid
-syn keyword maudeSorts      Zero NzNat NzInt NzRat Rat FiniteFloat
+syn keyword maudeSorts      Zero NzNat NzInt NzRat MachineInt Rat FiniteFloat
 syn keyword maudeSorts      String Char FindResult DecFloat
 
 syn keyword maudeAttrs      assoc comm idem iter id left-id right-id strat memo
@@ -82,9 +85,10 @@ syn keyword maudeStatements and or xor not implies
 syn keyword maudeLiteral    true false
 syn match   maudeLiteral    "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
 syn match   maudeLiteral    "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
-syn region  maudeBlockComment start=/^\s*\zs\*\*\* ($/ end=/^\s*\zs)$/
+syn region  maudeBlockComment start=/^\s*\zs\*\*\*\s*(/ end=/^\s*\zs)$/
 
 setl commentstring=***%s
+setl comments=s:***(,e:),:***
 
 MaudeHiLink maudeModule     PreProc
 MaudeHiLink maudeImports    PreProc
@@ -104,5 +108,4 @@ delcommand MaudeHiLink
   
 let b:current_syntax = "maude"
 
-"EOF vim: tw=78:ft=vim:ts=8
-
+" vim: tw=78:ft=vim:ts=4

@@ -46,6 +46,7 @@ augroup END
 Plug '~/gitproj/noulith/vim'
 Plug 'terrastruct/d2-vim'
 Plug 'folke/neodev.nvim'
+Plug 'kaarmu/typst.vim'
 
 " === Completion ===
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -165,11 +166,15 @@ Plug 'Yggdroot/indentLine'
 let g:indentLine_setConceal = 0
 
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'rebelot/heirline.nvim'
+au ModeChanged * redrawstatus
+
 Plug 'nvim-lua/plenary.nvim'
 Plug 'folke/todo-comments.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
+com -nargs=1 Browse :silent !xdg-open <args>
 
 Plug 'axieax/urlview.nvim'
 
@@ -195,6 +200,19 @@ highlight GitGutterChange ctermfg=3
 highlight GitGutterDelete ctermfg=1
 
 Plug 'mhinz/vim-startify'
+let g:startify_session_persistence = 1
+function Chars(str)
+    return map(str2list(a:str), "nr2char(v:val)")
+endfunction
+let g:startify_bookmarks = [ {'cv': '~/.config/nvim/init.vim'}, {'cl': '~/.config/nvim/config.lua'}, {'zs': '~/.zshrc' } ]
+let g:startify_lists = [
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] },
+            \ { 'type': 'sessions',  'header': ['   Sessions'],       'indices': Chars("!@#$%^&*()") },
+            \ { 'type': 'files',     'header': ['   MRU'],            'indices': Chars("qeradfzx") },
+            \ { 'type': 'dir',       'header': ['   MRU '. getcwd()], 'indices': Chars("QERADFZX") },
+            \ ]
+let g:startify_files_number = 8
+
 " source ~/.vim/bundle/fzf/plugin/fzf.vim
 Plug 'johmsalas/text-case.nvim'
 
@@ -282,13 +300,6 @@ if !exists('g:lasttab')
 endif
 noremap <silent> <leader>l <cmd>exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
-" avoid mispress of <SHIFT> when writing and quiting
-com -nargs=0 Q q
-com -nargs=0 Qa qa
-com -nargs=0 W w
-com -nargs=0 Wq wq
-com -nargs=0 Wqa wqa
 
 au BufRead,BufNewFile *.maude setfiletype maude
 au BufRead,BufNewFile *.fm setfiletype maude

@@ -75,7 +75,7 @@ keys = gears.table.join(
         { modkey },            "d",     -> os.execute("rofi -show drun"),
         {description: "rofi apps", group: "launcher"}),
     awful.key(
-        { modkey },            "w",     -> os.execute("rofi -show window"),
+        { modkey },            "w",     -> os.execute("rofi -show window -theme lines"),
         {description: "rofi windows", group: "launcher"}),
     awful.key(
         { modkey, "Shift" },   "d",     -> os.execute("rofi -show run"),
