@@ -142,27 +142,6 @@
 [submodule ".vim/bundle/vimwiki"]
 	path = vim/bundle/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
-[submodule ".tmux/plugins/nord-tmux"]
-	path = tmux/plugins/nord-tmux
-	url = https://git::@github.com/arcticicestudio/nord-tmux
-[submodule ".tmux/plugins/tmux-better-mouse-mode"]
-	path = tmux/plugins/tmux-better-mouse-mode
-	url = https://git::@github.com/nhdaly/tmux-better-mouse-mode
-[submodule ".tmux/plugins/tmux-continuum"]
-	path = tmux/plugins/tmux-continuum
-	url = https://git::@github.com/tmux-plugins/tmux-continuum
-[submodule ".tmux/plugins/tmux-fingers"]
-	path = tmux/plugins/tmux-fingers
-	url = https://git::@github.com/Morantron/tmux-fingers
-[submodule ".tmux/plugins/tmux-prefix-highlight"]
-	path = tmux/plugins/tmux-prefix-highlight
-	url = https://git::@github.com/tmux-plugins/tmux-prefix-highlight
-[submodule ".tmux/plugins/tmux-resurrect"]
-	path = tmux/plugins/tmux-resurrect
-	url = https://git::@github.com/tmux-plugins/tmux-resurrect
-[submodule ".tmux/plugins/tpm"]
-	path = tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
 [submodule "vim/bundle/hoon.vim"]
 	path = vim/bundle/hoon.vim
 	url = https://github.com/urbit/hoon.vim
