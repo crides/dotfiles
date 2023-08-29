@@ -3,7 +3,7 @@ set helplang=en
 lang en_US.utf8
 let mapleader = " "
 
-call plug#begin("~/.vim/bundle")
+call plug#begin()
 
 " === Language & filetype plugins ===
 Plug '~/gitproj/k/vim-k', {'frozen': 1}

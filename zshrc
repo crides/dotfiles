@@ -158,7 +158,9 @@ mc() {
     mkdir -p $1 && cd $1
 }
 
-export PATH="$HOME/.nix-profile/bin:/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$PATH"
+VIM_PLUGINS="$HOME/.local/share/nvim/plugged"
+
+export PATH="$VIM_PLUGINS/fzf/bin:$HOME/.nix-profile/bin:/go/bin:$HOME/.pub-cache/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.local/share/ponyup/bin:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 
 export BROWSER="$HOME/gitproj/qutebrowser/qutebrowser.py"
@@ -169,8 +171,8 @@ export VISUAL=nvim
 export QMK_HOME=$HOME/gitproj/qmk_firmware
 
 # fzf
-source ~/.fzf/completion.zsh
-source ~/.fzf/key-bindings.zsh
+source $VIM_PLUGINS/fzf/shell/completion.zsh
+source $VIM_PLUGINS/fzf/shell/key-bindings.zsh
 export FZF_DEFAULT_COMMAND='fd -HI -tf' #'rg --hidden -l ""'
 export FZF_CTRL_T_COMMAND='fd -HI -tf' 
 
