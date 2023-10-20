@@ -1,0 +1,49 @@
+#!/usr/bin/env nu
+
+def main [lang: string,
+          pat: string,
+          ...files,
+          --before (-B): int = 0,
+          --after (-A): int = 0,
+          --context (-C): int,
+          --count (-c),
+          --only-matching (-o),
+          --no-filename (-I),
+          --no-line-number (-N),
+          ] {
+    let cmd = (do { tree-grepper -q $lang $pat $files -f json } | complete)
+    if $cmd.exit_code != 0 {
+        print $cmd.stderr
+        exit $cmd.exit_code
+    }
+    let matches = ($cmd.stdout | from json)
+    let before = (if $context == null { $before } else { $context })
+    let after = (if $context == null { $after } else { $context })
+    for p in ($matches | enumerate) {
+        let i = $p.index
+        let file = $p.item
+        if $only_matching {
+            if not $no_filename {
+                if $i > 0 {
+                    print ""
+                }
+                print $"($file.file):"
+            }
+            for m in $file.matches {
+                if $no_line_number {
+                    print $m.text
+                } else {
+                    print $"($m.start.row),($m.start.column)~($m.end.row),($m.end.column):($m.text)"
+                }
+            }
+        } else if $count {
+            print $"($file.file):($file.matches | length)"
+        } else {
+            let matches = ($file.matches | each {|m| {start: $m.start.row end: (if $m.end.column == 1 { $m.end.row - 1 } else { $m.end.row })}})
+            let ranges = ($matches | each {|m| ["-r" $"($m.start - $before):($m.end + $after)" "-H" $"($m.start):($m.end)"] } | flatten)
+            ^bat -P $ranges $file.file
+        }
+    }
+}
+
+# vim:ft=nu
