@@ -97,3 +97,7 @@ def yellow_bg(s): color(43; s);
 def blue_bg(s): color(44; s);
 def purple_bg(s): color(45; s);
 def cyan_bg(s): color(46; s);
+
+def notnulls: values;
+def values: to_entries | map(.value);
+def to_dict(k; v): map({key: k, value: v}) | from_entries;
