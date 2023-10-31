@@ -80,6 +80,11 @@ local resize_streak = {
     { mods = 'CTRL', key = 'DownArrow', action = act.AdjustPaneSize { 'Down', 5 } },
     { mods = 'CTRL', key = 'RightArrow', action = act.AdjustPaneSize { 'Right', 5 } },
     { mods = 'CTRL', key = 'LeftArrow', action = act.AdjustPaneSize { 'Left', 5 } },
+
+    { key = 'PageUp', action = act.AdjustPaneSize { 'Up', 5 } },
+    { key = 'PageDown', action = act.AdjustPaneSize { 'Down', 5 } },
+    { key = 'End', action = act.AdjustPaneSize { 'Right', 5 } },
+    { key = 'Home', action = act.AdjustPaneSize { 'Left', 5 } },
 }
 
 local move_tab_streak = {
@@ -88,8 +93,8 @@ local move_tab_streak = {
 }
 
 local font = {
-    font = wezterm.font "Iosevka Term",
-    font_size = 12,
+    font = wezterm.font_with_fallback({"Iosevka Nerd Font Mono" }),
+    font_size = 16,
 }
 
 local tab_select = {}
@@ -164,6 +169,8 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
     end
 end)
 
+local uuid_re = [[\h{8}(?:-\h{4}){3}-\h{12}]]
+
 return {
     adjust_window_size_when_changing_font_size = false,
     audible_bell = "Disabled",
@@ -181,8 +188,13 @@ return {
     enable_scroll_bar = true,
     font = font.font,
     font_size = font.font_size,
+    hide_tab_bar_if_only_one_tab = true,
     inactive_pane_hsb = { saturation = 0.95, brightness = 0.75 },
     quick_select_alphabet = 'fdsarevcwqxznklbuim,op.j',
+    quick_select_patterns = {
+        uuid_re,
+        [[v?\d+(?:\.\d+)+]],       -- versions
+    },
     scrollback_lines = 1048576,
     show_new_tab_button_in_tab_bar = false,
     show_update_window = true,
@@ -206,6 +218,7 @@ return {
         },
         { mods = 'CTRL', key = '=', action = act.IncreaseFontSize },
         { mods = 'CTRL', key = '-', action = act.DecreaseFontSize },
+        { mods = 'CTRL', key = '0', action = act.ResetFontSize },
         { mods = 'CTRL|SHIFT', key = 'P', action = act.ActivateCommandPalette },
         { mods = 'CTRL|SHIFT', key = 'D', action = act.ShowDebugOverlay },
         {
@@ -213,6 +226,7 @@ return {
             key = 'u',
             action = wezterm.action.CharSelect { copy_on_select = false },
         },
+        { mods = 'CMD', key = 'v', action = act.PasteFrom 'Clipboard' },
     },
     key_tables = {
         prefix = {
@@ -235,6 +249,8 @@ return {
             { key = 'k', action = act.ActivatePaneDirection 'Up' },
             { key = 'l', action = act.ActivatePaneDirection 'Right' },
             { mods = 'SHIFT', key = 'F', action = act.QuickSelect },
+            { mods = 'SHIFT', key = 'R', action = act.QuickSelectArgs { patterns = { [[\d{7,}]] } } },
+            { mods = 'SHIFT', key = 'U', action = act.QuickSelectArgs { patterns = { uuid_re } } },
             { key = 'z', action = act.TogglePaneZoomState },
             { key = 'x', action = act.CloseCurrentPane { confirm = true } },
             -- TODO { mods = 'SHIFT', key = '!', action = act.PaneSelect { mode = 'MoveToNewTab' } },
@@ -278,7 +294,10 @@ return {
             }),
         },
         copy_mode = {
-            { key = 'Escape', action = act.CopyMode 'ClearSelectionMode' },
+            { key = 'Escape', action = act.Multiple {
+                act.CopyMode 'ClearSelectionMode',
+                act.CopyMode 'ClearPattern',
+            } },
             { key = 'c', mods = 'CTRL', action = act.Multiple {
                 act.CopyMode 'ClearSelectionMode',
                 act.CopyMode 'Close',
@@ -356,8 +375,6 @@ return {
 
             { key = '/', action = act.CopyMode 'EditPattern' },
             { key = '?', mods = 'SHIFT', action = act.CopyMode 'EditPattern' },
-            { key = 'Enter', action = act.CopyMode 'AcceptPattern' },
-            { key = 'u', mods = 'CTRL', action = act.CopyMode 'ClearPattern' },
             { key = 'n', action = act.CopyMode 'NextMatch' },
             { key = 'N', mods = 'SHIFT', action = act.CopyMode 'PriorMatch' },
             { key = 'n', mods = 'CTRL', action = act.CopyMode 'NextMatchPage' },
@@ -365,11 +382,7 @@ return {
         },
         search_mode = {
             { key = 'Enter', mods = 'NONE', action = act.CopyMode 'AcceptPattern' },
-            { key = 'Escape', mods = 'NONE', action = act.CopyMode 'Close' },
-            { key = 'n', action = act.CopyMode 'NextMatch' },
-            { key = 'N', mods = 'SHIFT', action = act.CopyMode 'PriorMatch' },
-            { key = 'n', mods = 'CTRL', action = act.CopyMode 'NextMatchPage' },
-            { key = 'N', mods = 'CTRL|SHIFT', action = act.CopyMode 'PriorMatchPage' },
+            { key = 'Escape', mods = 'NONE', action = act.CopyMode 'ClearPattern' },
             { key = 'r', mods = 'CTRL', action = act.CopyMode 'CycleMatchType' },
             { key = 'u', mods = 'CTRL', action = act.CopyMode 'ClearPattern' },
         },
