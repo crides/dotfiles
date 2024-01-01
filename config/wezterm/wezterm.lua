@@ -185,6 +185,7 @@ return {
     },
     color_scheme = "Gruvbox dark, hard (base16)",
     disable_default_key_bindings = true,
+    default_prog = { os.getenv("HOME") .. '/.local/bin/nu' },
     enable_scroll_bar = true,
     font = font.font,
     font_size = font.font_size,

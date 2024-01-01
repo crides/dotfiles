@@ -19,105 +19,6 @@ def is_alias [cmd: string] {
     ((which $cmd).type | get -i 0) == "alias"
 }
 
-let dark_theme = {
-    separator: "light_gray"
-    leading_trailing_space_bg: { attr: "n" }
-    header: { fg: white attr: "b" }
-    empty: "light_blue"
-    bool: {|| if $in { "light_cyan" } else { "light_gray" } }
-    int: "light_gray"
-    filesize: {||
-        if $in == 0b {
-            "light_gray"
-        } else if $in < 1mb {
-            "light_cyan"
-        } else {{ fg: "light_blue" }}
-    }
-    duration: "light_gray"
-    date: {|| (date now) - $in |
-        if $in < 1hr {
-            { fg: light_red attr: "b" }
-        } else if $in < 6hr {
-            "light_red"
-        } else if $in < 1day {
-            "light_yellow"
-        } else if $in < 3day {
-            "light_green"
-        } else if $in < 1wk {
-            { fg: light_green attr: "b" }
-        } else if $in < 6wk {
-            "light_cyan"
-        } else if $in < 52wk {
-            "light_blue"
-        } else { "dark_gray" }
-    }
-    range: "light_gray"
-    float: "light_gray"
-    string: "light_gray"
-    nothing: "light_gray"
-    binary: "light_gray"
-    cellpath: "light_gray"
-    row_index: { fg: light_green attr: "b" }
-    record: "light_gray"
-    list: "light_gray"
-    block: "light_gray"
-    hints: "dark_gray"
-    search_result: { fg: black bg: light_cyan }
-
-    shape_and: { fg: light_purple attr: "b" }
-    shape_binary: { fg: light_purple attr: "b" }
-    shape_block: { fg: light_blue attr: "b" }
-    shape_bool: light_cyan
-    shape_custom: light_green
-    shape_datetime: { fg: light_cyan attr: "b" }
-    shape_directory: (path_underline "light_green")
-    shape_external: {|p| 
-        if (is_alias $p) {
-            "light_cyan"
-        } else if (which $p | length) > 0 {
-            path_underline "light_green"
-        } else if (path_exists $in) {
-            "light_green_underline"
-        } else {
-            "red"
-        }
-    }
-    shape_externalarg: (path_underline "white")
-    shape_filepath: (path_underline "light_yellow")
-    shape_flag: { fg: light_blue attr: "b" }
-    shape_float: { fg: light_purple attr: "b" }
-    shape_garbage: { fg: "#fbf1c7" bg: "red" attr: "b" }
-    shape_globpattern: (path_underline "light_blue")
-    shape_int: { fg: light_purple attr: "b" }
-    shape_internalcall: {|p|
-        if (is_alias $p) {
-            "light_cyan"
-        } else {
-            { fg: light_cyan attr: "b" }
-        }
-    }
-    shape_list: { fg: light_cyan attr: "b" }
-    shape_literal: light_yellow
-    shape_match_pattern: light_green
-    shape_matching_brackets: { attr: "u" }
-    shape_nothing: white
-    # shape_operator: light_yellow
-    shape_or: { fg: light_purple attr: "b" }
-    shape_pipe: { fg: light_purple attr: "b" }
-    shape_range: { fg: light_yellow attr: "b" }
-    shape_record: { fg: light_cyan attr: "b" }
-    shape_redirection: { fg: light_purple attr: "b" }
-    shape_signature: { fg: light_green attr: "b" }
-    shape_string: (path_underline "light_green")
-    shape_string_interpolation: { fg: light_cyan attr: "b" }
-    shape_table: { fg: light_blue attr: "b" }
-    shape_variable: light_purple
-
-    background: "black"
-    foreground: "#fbf1c7"
-    cursor: "#fbf1c7"
-}
-
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
     show_banner: false
@@ -201,7 +102,103 @@ $env.config = {
         vi_normal: block
     }
 
-    color_config: $dark_theme
+    color_config: {
+        separator: "light_gray"
+        leading_trailing_space_bg: { attr: "n" }
+        header: { fg: white attr: "b" }
+        empty: "light_blue"
+        bool: {|| if $in { "light_cyan" } else { "dark_gray" } }
+        int: "light_purple"
+        filesize: {||
+            if $in == 0b {
+                "light_gray"
+            } else if $in < 1mb {
+                "light_cyan"
+            } else {{ fg: "light_blue" }}
+        }
+        duration: "light_gray"
+        date: {|| (date now) - $in |
+            if $in < 1hr {
+                { fg: light_red attr: "b" }
+            } else if $in < 6hr {
+                "light_red"
+            } else if $in < 1day {
+                "light_yellow"
+            } else if $in < 3day {
+                "light_green"
+            } else if $in < 1wk {
+                { fg: light_green attr: "b" }
+            } else if $in < 6wk {
+                "light_cyan"
+            } else if $in < 52wk {
+                "light_blue"
+            } else { "dark_gray" }
+        }
+        range: "light_purple"
+        float: "light_purple"
+        string: "light_green"
+        nothing: "dark_gray"
+        binary: "light_purple"
+        cellpath: "white"
+        row_index: { fg: white attr: "b" }
+        record: "white"
+        list: "white"
+        block: "white"
+        hints: "dark_gray"
+        search_result: { fg: black bg: light_cyan }
+
+        shape_and: { fg: light_purple attr: "b" }
+        shape_binary: { fg: light_purple attr: "b" }
+        shape_block: { fg: light_blue attr: "b" }
+        shape_bool: light_cyan
+        shape_custom: { fg: "#d65d0e" }
+        shape_datetime: { fg: light_cyan attr: "b" }
+        shape_directory: (path_underline "light_yellow")
+        shape_external: {|p| 
+            if (is_alias $p) {
+                "light_cyan"
+            } else if (path_exists $p) {
+                "light_green_underline"
+            } else {
+                "red"
+            }
+        }
+        shape_external_resolved: (path_underline "light_green")
+        shape_externalarg: (path_underline "white")
+        shape_filepath: (path_underline "light_yellow")
+        shape_flag: { fg: light_blue attr: "b" }
+        shape_float: { fg: light_purple attr: "b" }
+        shape_garbage: { fg: "white" bg: "light_red" attr: "b" }
+        shape_globpattern: (path_underline "light_blue")
+        shape_int: { fg: light_purple attr: "b" }
+        shape_internalcall: {|p|
+            if (is_alias $p) {
+                "light_cyan"
+            } else {
+                { fg: light_cyan attr: "b" }
+            }
+        }
+        shape_list: { fg: light_cyan attr: "b" }
+        shape_literal: light_yellow
+        shape_match_pattern: light_green
+        shape_matching_brackets: { attr: "u" }
+        shape_nothing: white
+        # shape_operator: light_yellow
+        shape_or: { fg: light_purple attr: "b" }
+        shape_pipe: { fg: light_purple attr: "b" }
+        shape_range: { fg: light_yellow attr: "b" }
+        shape_record: { fg: light_cyan attr: "b" }
+        shape_redirection: { fg: light_purple attr: "b" }
+        shape_signature: { fg: light_green attr: "b" }
+        shape_string: (path_underline "light_green")
+        shape_string_interpolation: { fg: light_cyan attr: "b" }
+        shape_table: { fg: light_blue attr: "b" }
+        shape_variable: light_purple
+
+        background: "black"
+        foreground: "#fbf1c7"
+        cursor: "#fbf1c7"
+    }
     use_grid_icons: true
     footer_mode: "25" # always, never, number_of_rows, auto
     float_precision: 3 # the precision for displaying floats in tables
@@ -212,6 +209,7 @@ $env.config = {
     shell_integration: true # enables terminal shell integration. Off by default, as some terminals have issues with this.
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
     use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this
+    highlight_resolved_externals: true
 
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
@@ -386,14 +384,21 @@ $env.config = {
             mode: vi_insert
             event: { send: ExecuteHostCommand cmd: "cd (^fd -HI -td | ^fzf --height 40% --reverse --scheme=path --bind=ctrl-z:ignore)" }
         }
+        {
+            name: fzf_hist
+            modifier: control keycode: char_r
+            mode: [vi_insert vi_normal]
+            event: { send: ExecuteHostCommand cmd: "commandline (history | get command | reverse | uniq | str replace '\n' '␤' | str trim | where $it != "" | to text | ^fzf --height 40% --reverse --scheme=history --bind=ctrl-z:ignore)" }
+        }
     ]
 }
 
 alias e = nvim
 alias v = neovide --multigrid
-alias l = ^exa -F
-alias la = ^exa -aF
-alias ll = ^exa -alF --git
+alias l = ^eza -F
+alias la = ^eza -aF
+alias ll = ^eza -alF --git
+alias lt = ^eza -alFT --git
 alias unlines = str join (char nl)
 alias py = python3
 alias ipy = ipython
@@ -417,6 +422,22 @@ def ds [name: string] {
             zathura --fork $f
         }
     }
+    null
+}
+
+def hist [pat?: string, --cwd(-c)] {
+    mut hist = history | rename time | into datetime time | update time { date to-timezone local }
+    if $pat != null {
+        $hist = ($hist | find $pat)
+    }
+    if $cwd {
+        $hist = ($hist | where cwd == (pwd))
+    }
+    $hist
+}
+
+def notify [title: string, body: string] {
+    ansi -o $"777;notify;($title);($body)"
 }
 
 def --env mc [dir: path] {
@@ -446,5 +467,17 @@ def findc [name: string] {
 
 source ($nu.default-config-dir | path join "zoxide-init.nu")
 source ($nu.default-config-dir | path join "starship-init.nu")
-source ($nu.default-config-dir | path join "git-aliases.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/cargo/cargo-completions.nu")
 source ($nu.default-config-dir | path join "nu_scripts/custom-completions/git/git-completions.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/feh.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/ffmpeg.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/fzf.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/jq.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/ln.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/mpv.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/objdump.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/objdump.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/rsync.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/tar.nu")
+source ($nu.default-config-dir | path join "nu_scripts/custom-completions/auto-generate/completions/tokei.nu")
+source ($nu.default-config-dir | path join "git-aliases.nu")

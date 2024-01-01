@@ -1,9 +1,9 @@
-[username]
-show_always = true
+format = "$time$all"
 
 [time]
 disabled = false
 format = "[$time](bold yellow) "
+time_format = "%F %T"
 
 [memory_usage]
 disabled = false
@@ -18,12 +18,23 @@ disabled = false
 [rust]
 symbol = " "
 
-[env_var]
-variable = "SHELL"
-style = "dimmed white"
-default = "unknown shell"
+[shell]
+zsh_indicator = "Z"
+nu_indicator = "N"
+disabled = false
 
-[custom.nnn]
-command = "echo NNN"
-when = "test $NNNLVL -gt 0"
-description = "nnn level"
+[sudo]
+disabled = false
+
+# [custom.nnn]
+# command = "echo NNN"
+# when = "test $NNNLVL -gt 0"
+# description = "nnn level"
+
+[custom.nu-local]
+command = 'print "LOCAL"'
+when = "exit (if $env.SHELL != ('~/.local/bin/nu' | path expand) { 0 } else { 1 })"
+style = "bold purple"
+shell = ["nu", "-n", "-c"]
+use_stdin = false
+description = "local level"

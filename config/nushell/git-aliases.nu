@@ -1,3 +1,7 @@
+def git_current_branch [] {
+    try { (^git symbolic-ref -q HEAD) } catch { (^git rev-parse --short HEAD) } | str replace "refs/heads/" "" | str trim
+}
+
 alias ga = git add
 alias gaa = git add --all
 alias gam = git am
@@ -14,7 +18,6 @@ alias gb = git branch
 alias gbD = git branch -D
 alias gba = git branch -a
 alias gbd = git branch -d
-# alias gbda = git branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs git branch -d 2>/dev/null
 alias gbl = git blame -b -w
 alias gblog = git blog
 alias gbnm = git branch --no-merged
@@ -52,6 +55,7 @@ alias gcsm = git commit -s -m
 alias gcss = git commit -S -s
 alias gcssm = git commit -S -s -m
 alias gd = git diff
+alias gdo = git diff $"origin/(git_current_branch)"
 alias gdca = git diff --cached
 alias gdct = git describe --tags (git rev-list --tags --max-count=1)
 alias gdcw = git diff --cached --word-diff
@@ -60,19 +64,15 @@ alias gdt = git diff-tree --no-commit-id --name-only -r
 alias gdup = git diff @{upstream}
 alias gdw = git diff --word-diff
 alias gf = git fetch
-alias gfa = git fetch --all --prune --jobs
-# alias gfg = git ls-files | grep
 alias gfo = git fetch origin
 alias gg = git gui citool
 alias gga = git gui citool --amend
 alias ggpull = git pull origin $"(git_current_branch)"
 alias ggpush = git push origin $"(git_current_branch)"
-alias ggsup = git branch --set-upstream-to
+def ggsup [branch: string, ...rest] { git branch --set-upstream-to $branch $rest }
 alias ghh = git help
 alias gi = git init
 alias gignore = git update-index --assume-unchanged
-#alias gignored = (git ls-files -v | rg "^[[:lower:]]")
-# alias git-svn-dcommit-push = git svn dcommit && git push github (git_main_branch):svntrunk
 alias gl = git pull
 alias glg = git log --stat
 alias glgg = git log --graph
@@ -98,9 +98,7 @@ alias gp = git push
 alias gpd = git push --dry-run
 alias gpf = git push --force-with-lease
 alias gpf! = git push --force
-# alias gpoat = git push origin --all && git push origin --tags
 alias gpr = git pull --rebase
-# alias gpristine = git reset --hard && git clean -dffx
 alias gpsup = git push --set-upstream origin (git_current_branch)
 alias gpu = git push upstream
 alias gpv = git push -v
@@ -154,9 +152,7 @@ alias gswd = git switch (git_develop_branch)
 alias gswm = git switch (git_main_branch)
 alias gt = git tree
 alias gts = git tag -s
-# alias gtv = git tag | sort -V
 alias gunignore = git update-index --no-assume-unchanged
-# alias gunwip = git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1
 alias gup = git pull --rebase
 alias gupa = git pull --rebase --autostash
 alias gupav = git pull --rebase --autostash -v
@@ -164,4 +160,14 @@ alias gupom = git pull --rebase origin (git_main_branch)
 alias gupomi = git pull --rebase
 alias gupv = git pull --rebase -v
 alias gwch = git whatchanged -p --abbrev-commit --pretty
+
 # alias gwip = git add -A; git rm (git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign -m "--wip-- [skip ci]"
+# alias gpoat = git push origin --all && git push origin --tags
+# alias gpristine = git reset --hard && git clean -dffx
+# alias gunwip = git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1
+# alias gtv = git tag | sort -V
+# alias gbda = git branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs git branch -d 2>/dev/null
+# alias gfa = git fetch --all --prune --jobs
+# alias gfg = git ls-files | grep
+# alias gignored = (git ls-files -v | rg "^[[:lower:]]")
+# alias git-svn-dcommit-push = git svn dcommit && git push github (git_main_branch):svntrunk

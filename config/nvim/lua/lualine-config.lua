@@ -18,6 +18,14 @@ for _, mode in ipairs({"normal", "insert", "visual", "command", "replace", "inac
     gruvbox[mode].z = z_style
 end
 
+-- listen lsp-progress event and refresh lualine
+vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  group = "lualine_augroup",
+  pattern = "LspProgressStatusUpdated",
+  callback = require("lualine").refresh,
+})
+
 return {
     options = {
         theme = gruvbox,
@@ -51,6 +59,7 @@ return {
                 sections = { 'error', 'warn' },
             },
             'trouble',
+            require('lsp-progress').progress,
         },
         lualine_x = {
             'encoding',

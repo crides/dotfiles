@@ -419,5 +419,3 @@ require('gitsigns').setup{
     map({'o', 'x'}, 'ah', gs.select_hunk)
   end
 }
-require("copilot").setup {}
-require("copilot_cmp").setup()

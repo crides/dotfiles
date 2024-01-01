@@ -38,3 +38,5 @@
 	defaultBranch = main
 [advice]
     detachedHead = false
+[rebase]
+    autoStash = true

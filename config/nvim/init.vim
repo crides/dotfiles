@@ -35,7 +35,7 @@ let g:tex_flavor = "latex"
 Plug 'gluon-lang/vim-gluon'
 Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 Plug 'derekelkins/agda-vim'
-Plug 'whonore/Coqtail'
+" Plug 'whonore/Coqtail'
 augroup CoqtailHighlights
   autocmd!
   autocmd ColorScheme *
@@ -73,8 +73,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'wookayin/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'zbirenbaum/copilot.lua'
-Plug 'zbirenbaum/copilot-cmp'
 
 " === Moving arround & Editing ===
 Plug 'easymotion/vim-easymotion'
@@ -177,6 +175,7 @@ let g:loaded_netrwPlugin = 1
 com -nargs=1 Browse :silent !xdg-open <args>
 
 Plug 'axieax/urlview.nvim'
+Plug 'linrongbin16/lsp-progress.nvim'
 
 " === Colorscheme ===
 Plug 'morhetz/gruvbox'
@@ -329,6 +328,8 @@ au FileType dts set iskeyword+=-
 " MLIR
 au BufRead,BufNewFile *.mlir setfiletype mlir
 au BufRead,BufNewFile *.ll setfiletype llvm
+
+au BufRead,BufNewFile *.nu setfiletype nu
 
 hi link @punctuation.delimiter Normal
 hi link @punctuation.bracket Normal
